@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30413.136
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDBDemoApp", "App\MongoDBDemoApp.csproj", "{E1873257-80D2-407B-9087-2B15E9A7C048}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDBWeihnachtsmarktApp", "App\MongoDBWeihnachtsmarktApp.csproj", "{E1873257-80D2-407B-9087-2B15E9A7C048}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDBDemoApp.Test", "Test\MongoDBDemoApp.Test.csproj", "{E410CDB5-538D-45BE-AB59-201E59B6EDC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDBWeihnachtsmarktApp.Test", "Test\MongoDBWeihnachtsmarktApp.Test.csproj", "{E410CDB5-538D-45BE-AB59-201E59B6EDC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
