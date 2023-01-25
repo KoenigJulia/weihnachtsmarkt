@@ -4,6 +4,7 @@ using LeoMongo.Transaction;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using MongoDBDemoApp.Core.Workloads.Products;
 
 namespace MongoDBDemoApp.Core.Workloads.Orders;
 
@@ -12,6 +13,7 @@ public sealed class OrderRepository : RepositoryBase<Order>, IOrderRepository
     public OrderRepository(ITransactionProvider transactionProvider, IDatabaseProvider databaseProvider) : base(
         transactionProvider, databaseProvider)
     {
+        
     }
 
     public override string CollectionName { get; } = MongoUtil.GetCollectionName<Order>();
@@ -57,12 +59,12 @@ public sealed class OrderRepository : RepositoryBase<Order>, IOrderRepository
         return deleteResult.DeletedCount == 1;
     }
 
-    public async Task<IReadOnlyCollection<OrderItem>> GetOrderItemsForOrder(ObjectId orderId)
+    public async Task<IReadOnlyCollection<Product>> GetOrderItemsForOrder(ObjectId orderId)
     {
         return await Query().Where(o => o.Id == orderId).Select(o => o.OrderItems).FirstOrDefaultAsync();
     }
 
-    public async Task<bool> AddOrderItem(ObjectId orderId, OrderItem orderItem)
+    public async Task<bool> AddOrderItem(ObjectId orderId, Product orderItem)
     {
         var x = UpdateDefBuilder.Push(o => o.OrderItems, orderItem);
         var res = await UpdateOneAsync(orderId, x);
@@ -70,7 +72,7 @@ public sealed class OrderRepository : RepositoryBase<Order>, IOrderRepository
     }
 
 
-    public async Task<bool> DeleteOrderItemOfOrder(ObjectId orderId, OrderItem orderItem)
+    public async Task<bool> DeleteOrderItemOfOrder(ObjectId orderId, Product orderItem)
     {
         Order? order = await GetOrderById(orderId);
         if (order == default)
