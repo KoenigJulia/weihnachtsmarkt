@@ -10,5 +10,4 @@ public sealed class Vendor: EntityBase
     public string Name { get; set; } = default!;
     public List<ObjectId> Products { get; set; } = new List<ObjectId>();
     public List<Employee> Employees { get; set; } = new List<Employee>();
-    public ObjectId PlaceId { get; set; } = default!;
 }
