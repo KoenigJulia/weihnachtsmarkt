@@ -21,11 +21,12 @@ public sealed class VendorService: IVendorService
         return _repository.GetVendorById(id);
     }
 
-    public Task<Vendor> AddVendor(string name)
+    public Task<Vendor> AddVendor(string name, ObjectId placeId)
     {
         var vendor = new Vendor()
         {
-            Name = name
+            Name = name,
+            PlaceId = placeId
         };
         return _repository.AddVendor(vendor);
     }
