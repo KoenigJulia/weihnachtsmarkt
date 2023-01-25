@@ -40,7 +40,6 @@ public sealed class CommentRepository : RepositoryBase<Comment>, ICommentReposit
 
     public async Task<bool> DeleteComment(ObjectId id)
     {
-        // TODO
         var deleteResult = await DeleteOneAsync(id);
         return deleteResult.DeletedCount == 1;
     }
