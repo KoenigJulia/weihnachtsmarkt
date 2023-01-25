@@ -50,4 +50,9 @@ public class VendorRepository: RepositoryBase<Vendor>, IVendorRepository
         var res = await UpdateOneAsync(vendorId, x);
         return res is { IsAcknowledged: true, ModifiedCount: 1 };
     }
+
+    public async Task<List<Employee>> GetAllEmployees()
+    {
+        return await Query().Select(v => v.Employees).SelectMany(x => x).ToListAsync();
+    }
 }

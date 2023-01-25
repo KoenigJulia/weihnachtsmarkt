@@ -44,4 +44,9 @@ public sealed class VendorService: IVendorService
         };
         return _repository.AddEmployeeToVendor(employee, vendorId);
     }
+
+    public Task<List<Employee>> GetAllEmployees()
+    {
+        return _repository.GetAllEmployees();
+    }
 }

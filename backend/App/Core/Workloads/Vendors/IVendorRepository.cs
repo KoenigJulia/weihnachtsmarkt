@@ -13,4 +13,5 @@ public interface IVendorRepository: IRepositoryBase
 
     Task<bool> AddProductToVendor(ObjectId productId, ObjectId vendorId);
     Task<bool> AddEmployeeToVendor(Employee employee, ObjectId vendorId);
+    Task<List<Employee>> GetAllEmployees();
 }
