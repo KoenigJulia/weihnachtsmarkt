@@ -1,7 +1,7 @@
 using LeoMongo;
 using MongoDBDemoApp.Core.Util;
-using MongoDBDemoApp.Core.Workloads.Comments;
-using MongoDBDemoApp.Core.Workloads.Posts;
+using MongoDBDemoApp.Core.Workloads.Customers;
+using MongoDBDemoApp.Core.Workloads.Orders;
 
 namespace MongoDBDemoApp;
 
@@ -25,10 +25,10 @@ public class Startup
         services.AddLeoMongo<MongoConfig>();
 
         // for bigger assemblies it would be alright to register those via reflection by naming convention!
-        services.AddScoped<IPostRepository, PostRepository>();
-        services.AddScoped<IPostService, PostService>();
-        services.AddScoped<ICommentRepository, CommentRepository>();
-        services.AddScoped<ICommentService, CommentService>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
+        /*services.AddScoped<ICommentRepository, CommentRepository>();
+        services.AddScoped<ICommentService, CommentService>();*/
 
         services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
