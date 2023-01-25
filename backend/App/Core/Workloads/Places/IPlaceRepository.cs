@@ -10,4 +10,5 @@ public interface IPlaceRepository: IRepositoryBase
     Task<Place?> GetPlaceById(ObjectId id);
     Task DeletePlace(ObjectId id);
     Task<bool> ReservePlace(ObjectId vendorId, ObjectId placeId);
+    Task<List<Place>> GetFreePlaces();
 }

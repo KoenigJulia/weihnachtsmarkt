@@ -42,4 +42,9 @@ public class PlaceRepository: RepositoryBase<Place>, IPlaceRepository
         var res = await UpdateOneAsync(vendorId, x);
         return res is { IsAcknowledged: true, ModifiedCount: 1 };
     }
+
+    public async Task<List<Place>> GetFreePlaces()
+    {
+        return await Query().Where(p => p.VendorId == null).ToListAsync();
+    }
 }

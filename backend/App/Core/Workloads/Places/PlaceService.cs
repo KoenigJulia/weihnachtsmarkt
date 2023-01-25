@@ -50,4 +50,9 @@ public class PlaceService: IPlaceService
         
         return await _repository.ReservePlace(vendorId, placeId);
     }
+
+    public Task<List<Place>> GetFreePlaces()
+    {
+        return _repository.GetFreePlaces();
+    }
 }
