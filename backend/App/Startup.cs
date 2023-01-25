@@ -2,6 +2,8 @@ using LeoMongo;
 using MongoDBDemoApp.Core.Util;
 using MongoDBDemoApp.Core.Workloads.Comments;
 using MongoDBDemoApp.Core.Workloads.Posts;
+using MongoDBDemoApp.Core.Workloads.Products;
+using MongoDBDemoApp.Core.Workloads.Vendor;
 
 namespace MongoDBDemoApp;
 
@@ -29,6 +31,8 @@ public class Startup
         services.AddScoped<IPostService, PostService>();
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<ICommentService, CommentService>();
+        services.AddScoped<IVendorRepository, VendorRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
 
         services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
