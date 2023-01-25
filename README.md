@@ -1,7 +1,7 @@
 # weihnachtsmarkt_mongo
 
-* flo,markus: order
-* jakob,nico: vendor,product
+* flo,markus: order, customer
+* jakob,nico: place, vendor,product
 * julia: frontend
 
 * flo, jakob, julia: data-model
