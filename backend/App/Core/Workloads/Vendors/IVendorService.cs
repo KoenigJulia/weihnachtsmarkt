@@ -8,4 +8,6 @@ public interface IVendorService
     Task<Vendor?> GetVendorById(ObjectId id);
     Task<Vendor> AddVendor(string name);
     Task DeleteVendor(ObjectId id);
+    Task<bool> AddEmployeeToVendor(string firstName, string lastName, ObjectId vendorId);
+    Task<List<Employee>> GetAllEmployees();
 }
