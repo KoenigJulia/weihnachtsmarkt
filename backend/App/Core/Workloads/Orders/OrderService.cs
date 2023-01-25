@@ -1,6 +1,7 @@
 ﻿using LeoMongo;
 using MongoDB.Bson;
 using MongoDBDemoApp.Core.Util;
+using MongoDBDemoApp.Core.Workloads.Products;
 
 namespace MongoDBDemoApp.Core.Workloads.Orders;
 
@@ -37,17 +38,17 @@ public sealed class OrderService : IOrderService
         return await _repository.DeleteOrder(id);
     }
 
-    public async Task<IReadOnlyCollection<OrderItem>> GetOrderItemsForOrder(ObjectId orderId)
+    public async Task<IReadOnlyCollection<Product>> GetOrderItemsForOrder(ObjectId orderId)
     {
         return await _repository.GetOrderItemsForOrder(orderId);
     }
 
-    public async Task<bool> AddOrderItem(ObjectId orderId, OrderItem orderItem)
+    public async Task<bool> AddOrderItem(ObjectId orderId, Product orderItem)
     {
         return await _repository.AddOrderItem(orderId, orderItem);
     }
 
-    public async Task<bool> DeleteOrderItemOfOrder(ObjectId orderId, OrderItem orderItem)
+    public async Task<bool> DeleteOrderItemOfOrder(ObjectId orderId, Product orderItem)
     {
         return await _repository.DeleteOrderItemOfOrder(orderId, orderItem);
     }
