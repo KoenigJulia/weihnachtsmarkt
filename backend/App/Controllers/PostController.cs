@@ -1,11 +1,5 @@
-﻿using AutoMapper;
-using LeoMongo.Transaction;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
-using MongoDBDemoApp.Core.Util;
-using MongoDBDemoApp.Core.Workloads.Posts;
-using MongoDBDemoApp.Model.Post;
+﻿using Microsoft.AspNetCore.Mvc;
+
 
 namespace MongoDBDemoApp.Controllers;
 
@@ -13,7 +7,7 @@ namespace MongoDBDemoApp.Controllers;
 [ApiController]
 public sealed class PostController : ControllerBase
 {
-    private readonly IMapper _mapper;
+    /*private readonly IMapper _mapper;
     private readonly IPostService _service;
     private readonly ITransactionProvider _transactionProvider;
 
@@ -103,5 +97,5 @@ public sealed class PostController : ControllerBase
         var post = await _service.AddPost(request.Title, request.Author, request.Text);
         await transaction.CommitAsync();
         return CreatedAtAction(nameof(GetById), new {id = post.Id.ToString()}, post);
-    }
+    }*/
 }

@@ -1,11 +1,5 @@
-﻿using AutoMapper;
-using LeoMongo.Transaction;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using MongoDB.Bson;
-using MongoDBDemoApp.Core.Workloads.Comments;
-using MongoDBDemoApp.Core.Workloads.Posts;
-using MongoDBDemoApp.Model.Comment;
+﻿using Microsoft.AspNetCore.Mvc;
+
 
 namespace MongoDBDemoApp.Controllers;
 
@@ -13,7 +7,7 @@ namespace MongoDBDemoApp.Controllers;
 [ApiController]
 public sealed class CommentController : ControllerBase
 {
-    private readonly ILogger<CommentController> _logger;
+    /*private readonly ILogger<CommentController> _logger;
     private readonly IMapper _mapper;
     private readonly IPostService _postService;
     private readonly ICommentService _service;
@@ -92,7 +86,6 @@ public sealed class CommentController : ControllerBase
     [HttpDelete]
     public async Task<IActionResult> DeleteComment(string id)
     {
-        // TODO
         var comment = await _service.GetCommentById(new (id));
         if (comment == null)
         {
@@ -135,5 +128,5 @@ public sealed class CommentController : ControllerBase
             request.Text
         );
         return Ok(comment);
-    }
+    }*/
 }
