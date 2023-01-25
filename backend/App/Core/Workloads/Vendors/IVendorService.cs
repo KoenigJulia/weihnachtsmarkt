@@ -1,14 +1,11 @@
-using LeoMongo.Database;
 using MongoDB.Bson;
-using MongoDBDemoApp.Core.Workloads.Products;
 
 namespace MongoDBDemoApp.Core.Workloads.Vendors;
 
-public interface IVendorRepository: IRepositoryBase
+public interface IVendorService
 {
-    Task<Vendor> AddVendor(Vendor vendor);
     Task<IReadOnlyCollection<Vendor>> GetAllVendors();
     Task<Vendor?> GetVendorById(ObjectId id);
+    Task<Vendor> AddVendor(string name);
     Task DeleteVendor(ObjectId id);
-    
 }

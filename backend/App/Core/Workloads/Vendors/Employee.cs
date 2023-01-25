@@ -1,4 +1,4 @@
-namespace MongoDBDemoApp.Core.Workloads.Employees;
+namespace MongoDBDemoApp.Core.Workloads.Vendors;
 
 public sealed class Employee
 {
