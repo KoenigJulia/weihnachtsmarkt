@@ -1,6 +1,7 @@
 using LeoMongo;
 using MongoDBDemoApp.Core.Util;
 using MongoDBDemoApp.Core.Workloads.Comments;
+using MongoDBDemoApp.Core.Workloads.Places;
 using MongoDBDemoApp.Core.Workloads.Posts;
 using MongoDBDemoApp.Core.Workloads.Products;
 using MongoDBDemoApp.Core.Workloads.Vendor;
@@ -33,6 +34,7 @@ public class Startup
         services.AddScoped<ICommentService, CommentService>();
         services.AddScoped<IVendorRepository, VendorRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IPlaceRepository, PlaceRepository>();
 
         services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
