@@ -4,7 +4,7 @@ using MongoDBDemoApp.Core.Workloads.Comments;
 using MongoDBDemoApp.Core.Workloads.Places;
 using MongoDBDemoApp.Core.Workloads.Posts;
 using MongoDBDemoApp.Core.Workloads.Products;
-using MongoDBDemoApp.Core.Workloads.Vendor;
+using MongoDBDemoApp.Core.Workloads.Vendors;
 
 namespace MongoDBDemoApp;
 
@@ -35,6 +35,7 @@ public class Startup
         services.AddScoped<IVendorRepository, VendorRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IPlaceRepository, PlaceRepository>();
+        services.AddScoped<IVendorService, VendorService>();
 
         services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
