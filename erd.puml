@@ -26,7 +26,7 @@ class Place {
 note left: Stand place
 
 Vendor ||--o{ Product
-Vendor -- Place
+Vendor |o--|| Place
 
 Order ||--o{ OrderItem
 OrderItem ||--|| Product
