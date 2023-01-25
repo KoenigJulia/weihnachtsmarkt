@@ -1,6 +1,6 @@
 using LeoMongo.Database;
 
-namespace MongoDBDemoApp.Core.Workloads.Order;
+namespace MongoDBDemoApp.Core.Workloads.Customers;
 
 public class Customer : EntityBase
 {

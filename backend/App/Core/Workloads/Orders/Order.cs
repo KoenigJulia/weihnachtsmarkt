@@ -1,7 +1,7 @@
 using LeoMongo.Database;
 using MongoDB.Bson;
 
-namespace MongoDBDemoApp.Core.Workloads.Order;
+namespace MongoDBDemoApp.Core.Workloads.Orders;
 
 public class Order : EntityBase
 {

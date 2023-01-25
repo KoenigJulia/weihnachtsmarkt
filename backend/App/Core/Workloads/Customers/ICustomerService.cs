@@ -1,8 +1,7 @@
 ﻿using LeoMongo.Database;
 using MongoDB.Bson;
-using MongoDBDemoApp.Core.Workloads.Order;
 
-namespace MongoDBDemoApp.Core.Workloads.Order;
+namespace MongoDBDemoApp.Core.Workloads.Customers;
 
 public interface ICustomerService: IRepositoryBase
 {

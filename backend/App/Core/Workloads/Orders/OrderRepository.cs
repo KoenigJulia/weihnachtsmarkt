@@ -6,7 +6,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using MongoDBDemoApp.Core.Workloads.Comments;
 
-namespace MongoDBDemoApp.Core.Workloads.Order;
+namespace MongoDBDemoApp.Core.Workloads.Orders;
 
 public sealed class OrderRepository : RepositoryBase<Order>, IOrderRepository
 {

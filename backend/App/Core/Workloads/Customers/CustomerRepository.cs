@@ -3,9 +3,8 @@ using LeoMongo.Transaction;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using MongoDBDemoApp.Core.Workloads.Comments;
 
-namespace MongoDBDemoApp.Core.Workloads.Order;
+namespace MongoDBDemoApp.Core.Workloads.Customers;
 
 public sealed class CustomerRepository : RepositoryBase<Customer>,ICustomerRepository
 {

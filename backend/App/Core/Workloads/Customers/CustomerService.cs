@@ -1,11 +1,8 @@
 ﻿using LeoMongo;
 using MongoDB.Bson;
 using MongoDBDemoApp.Core.Util;
-using MongoDBDemoApp.Core.Workloads.Comments;
-using MongoDBDemoApp.Core.Workloads.Order;
-using MongoDBDemoApp.Core.Workloads.Posts;
 
-namespace MongoDBDemoApp.Core.Workloads.Order;
+namespace MongoDBDemoApp.Core.Workloads.Customers;
 
 public sealed class CustomerService : ICustomerService
 {
