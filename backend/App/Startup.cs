@@ -36,7 +36,8 @@ public class Startup
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IPlaceRepository, PlaceRepository>();
         services.AddScoped<IVendorService, VendorService>();
-        services.AddScoped<IProductService, IProductService>();
+        services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IPlaceService, PlaceService>();
 
         services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
