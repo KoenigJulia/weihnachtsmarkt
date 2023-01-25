@@ -1,0 +1,40 @@
+@startuml
+left to right direction
+class Vendor {
+}
+note left: Individual or Business
+
+class Product {
+}
+note left: Only for one Vendor
+
+class Customer {
+}
+
+class Order {
+}
+
+class OrderItem{
+}
+
+class Event {
+}
+note right: Could be start/end time, event name/type, ...
+
+class Promotion {
+}
+note left: A reduction of price for a product
+
+class Place {
+}
+note left: Stand place
+
+Vendor ||--o{ Product
+Vendor -- Place
+
+Order ||--o{ OrderItem
+OrderItem ||--|| Product
+Customer ||--o{ Order
+
+Promotion ||--|| Product
+@enduml
