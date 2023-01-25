@@ -34,4 +34,14 @@ public sealed class VendorService: IVendorService
     {
         return _repository.DeleteVendor(id);
     }
+
+    public Task<bool> AddEmployeeToVendor(string firstName, string lastName, ObjectId vendorId)
+    {
+        Employee employee = new Employee()
+        {
+            FirstName = firstName,
+            LastName = lastName
+        };
+        return _repository.AddEmployeeToVendor(employee, vendorId);
+    }
 }

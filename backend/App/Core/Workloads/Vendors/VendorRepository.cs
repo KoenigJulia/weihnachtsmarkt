@@ -43,4 +43,11 @@ public class VendorRepository: RepositoryBase<Vendor>, IVendorRepository
         var res = await UpdateOneAsync(vendorId, x);
         return res is { IsAcknowledged: true, ModifiedCount: 1 };
     }
+
+    public async Task<bool> AddEmployeeToVendor(Employee employee, ObjectId vendorId)
+    {
+        var x = UpdateDefBuilder.Push(v => v.Employees, employee);
+        var res = await UpdateOneAsync(vendorId, x);
+        return res is { IsAcknowledged: true, ModifiedCount: 1 };
+    }
 }
