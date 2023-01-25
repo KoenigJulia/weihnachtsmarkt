@@ -35,4 +35,16 @@ public class PlaceRepository: RepositoryBase<Place>, IPlaceRepository
     {
         return DeleteOneAsync(id);
     }
+
+    public async Task<bool> ReservePlace(ObjectId vendorId, ObjectId placeId)
+    {
+        var x = UpdateDefBuilder.Set(p => p.VendorId, vendorId);
+        var res = await UpdateOneAsync(vendorId, x);
+        return res is { IsAcknowledged: true, ModifiedCount: 1 };
+    }
+
+    public async Task<List<Place>> GetFreePlaces()
+    {
+        return await Query().Where(p => p.VendorId == null).ToListAsync();
+    }
 }

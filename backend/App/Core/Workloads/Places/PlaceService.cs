@@ -34,4 +34,25 @@ public class PlaceService: IPlaceService
     {
         return _repository.DeletePlace(id);
     }
+
+    public async Task<bool> ReservePlace(ObjectId vendorId, ObjectId placeId)
+    {
+        Place? p = await GetPlaceById(placeId);
+        if (p == null)
+        {
+            throw new ArgumentNullException();
+        }
+
+        if (p.VendorId != null)
+        {
+            throw new ArgumentException("Place is already reserved!");
+        }
+        
+        return await _repository.ReservePlace(vendorId, placeId);
+    }
+
+    public Task<List<Place>> GetFreePlaces()
+    {
+        return _repository.GetFreePlaces();
+    }
 }

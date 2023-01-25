@@ -6,5 +6,5 @@ namespace MongoDBDemoApp.Core.Workloads.Places;
 public sealed class Place: EntityBase
 {
     public int PlaceNr { get; set; }
-    public ObjectId VendorId { get; set; }
+    public ObjectId? VendorId { get; set; }
 }
