@@ -2,7 +2,7 @@ using LeoMongo.Database;
 using MongoDB.Bson;
 using MongoDBDemoApp.Core.Workloads.Products;
 
-namespace MongoDBDemoApp.Core.Workloads.Vendor;
+namespace MongoDBDemoApp.Core.Workloads.Vendors;
 
 public interface IVendorRepository: IRepositoryBase
 {

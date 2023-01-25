@@ -1,9 +1,8 @@
 using LeoMongo.Database;
 using MongoDB.Bson;
-using MongoDBDemoApp.Core.Workloads.Employees;
 using MongoDBDemoApp.Core.Workloads.Products;
 
-namespace MongoDBDemoApp.Core.Workloads.Vendor;
+namespace MongoDBDemoApp.Core.Workloads.Vendors;
 
 public sealed class Vendor: EntityBase
 {

@@ -6,7 +6,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using MongoDBDemoApp.Core.Workloads.Products;
 
-namespace MongoDBDemoApp.Core.Workloads.Vendor;
+namespace MongoDBDemoApp.Core.Workloads.Vendors;
 
 public class VendorRepository: RepositoryBase<Vendor>, IVendorRepository
 {
