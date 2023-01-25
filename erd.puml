@@ -17,9 +17,9 @@ class Order {
 class OrderItem{
 }
 
-class Promotion {
+class Employee {
 }
-note left: A reduction of price for a product
+
 
 class Place {
 }
@@ -27,10 +27,11 @@ note left: Stand place
 
 Vendor ||--o{ Product
 Vendor |o--|| Place
+Vendor ||--|{ Employee
 
 Order ||--o{ OrderItem
 OrderItem ||--|| Product
-Customer ||--o{ Order
+Customer |o--o{ Order
 
-Promotion ||--|| Product
+
 @enduml
