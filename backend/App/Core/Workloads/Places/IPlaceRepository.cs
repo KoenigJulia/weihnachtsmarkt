@@ -9,4 +9,5 @@ public interface IPlaceRepository: IRepositoryBase
     Task<IReadOnlyCollection<Place>> GetAllPlaces();
     Task<Place?> GetPlaceById(ObjectId id);
     Task DeletePlace(ObjectId id);
+    Task<bool> ReservePlace(ObjectId vendorId, ObjectId placeId);
 }
