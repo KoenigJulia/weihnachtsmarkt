@@ -4,7 +4,6 @@ using LeoMongo.Transaction;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
-using MongoDBDemoApp.Core.Workloads.Comments;
 
 namespace MongoDBDemoApp.Core.Workloads.Orders;
 
