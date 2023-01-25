@@ -17,10 +17,6 @@ class Order {
 class OrderItem{
 }
 
-class Event {
-}
-note right: Could be start/end time, event name/type, ...
-
 class Promotion {
 }
 note left: A reduction of price for a product
