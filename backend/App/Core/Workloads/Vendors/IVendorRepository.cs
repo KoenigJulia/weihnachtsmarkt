@@ -10,5 +10,6 @@ public interface IVendorRepository: IRepositoryBase
     Task<IReadOnlyCollection<Vendor>> GetAllVendors();
     Task<Vendor?> GetVendorById(ObjectId id);
     Task DeleteVendor(ObjectId id);
-    
+
+    Task<bool> AddProductToVendor(ObjectId productId, ObjectId vendorId);
 }
