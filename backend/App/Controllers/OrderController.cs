@@ -1,26 +1,30 @@
-﻿using LeoMongo.Transaction;
+﻿using AutoMapper;
+using LeoMongo.Transaction;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using MongoDB.Bson;
 using MongoDBDemoApp.Core.Workloads.Orders;
 using MongoDBDemoApp.Model.Order;
+using MongoDBDemoApp.Model.Product;
 
 namespace MongoDBDemoApp.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class OrderController: ControllerBase
+public class OrderController : ControllerBase
 {
-    
     private readonly IOrderService _orderService;
     private readonly ITransactionProvider _transactionProvider;
-    
+    private readonly IMapper _mapper;
+
     public OrderController(ILogger<CommentController> logger,
         IOrderService orderService,
-        ITransactionProvider transactionProvider)
+        ITransactionProvider transactionProvider,
+        IMapper mapper)
     {
         _orderService = orderService;
         _transactionProvider = transactionProvider;
+        _mapper = mapper;
     }
 
     [HttpGet]
@@ -35,7 +39,7 @@ public class OrderController: ControllerBase
             return BadRequest();
         }
 
-        return Ok(order);
+        return Ok(_mapper.Map<OrderDto>(order));
     }
 
     [HttpGet]
@@ -43,7 +47,7 @@ public class OrderController: ControllerBase
     public async Task<ActionResult<IReadOnlyCollection<Order>>> GetAll()
     {
         var orders = await _orderService.GetOrders();
-        return Ok(orders);
+        return Ok(_mapper.Map<IReadOnlyCollection<OrderDto>>(orders));
     }
 
     [HttpPost]
@@ -56,13 +60,46 @@ public class OrderController: ControllerBase
         }
 
         using var transaction = await _transactionProvider.BeginTransaction();
-        var order = await _orderService.AddOrder(new Order()
+        var newOrder = new Order()
         {
-            CustomerId = new ObjectId(request.CustomerId)
-        });
-        request.OrderItems.ForEach(oi => { order.OrderItems.Add(new ObjectId(oi)); });
+            CustomerId = new ObjectId(request.CustomerId),
+            Created = DateTime.Now,
+        };
+        request.OrderItems.ForEach(oi => { newOrder.OrderItems.Add(new ObjectId(oi)); });
+
+        var order = await _orderService.AddOrder(newOrder);
 
         await transaction.CommitAsync();
-        return CreatedAtAction(nameof(GetById), new {id = order.Id.ToString()}, order);
+        return CreatedAtAction(nameof(GetById), new {id = order.Id.ToString()}, _mapper.Map<OrderDto>(order));
+    }
+    
+    [HttpDelete]
+    [Route("order")]
+    public async Task<IActionResult> DeleteOrder(string orderId)
+    {
+        var customer = await _orderService.GetOrderById(new ObjectId(orderId));
+        if (customer == null)
+        {
+            return BadRequest();
+        }
+
+        return Ok(await _orderService.DeleteOrder(new ObjectId(orderId)));
+    }
+    
+    [HttpPost]
+    [Route("order/{orderId}/product")]
+    public async Task<IActionResult> AddProductToOrder(string orderId, [FromBody] AddProductRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(orderId) || string.IsNullOrWhiteSpace(orderId))
+        {
+            return BadRequest();
+        }
+
+        using var transaction = await _transactionProvider.BeginTransaction();
+        await _orderService.AddOrderItem(new ObjectId(orderId), new ObjectId(request.ProductId));
+        await transaction.CommitAsync();
+        
+        var order = await _orderService.GetOrderById(new ObjectId(orderId));
+        return Ok(_mapper.Map<OrderDto>(order));
     }
 }

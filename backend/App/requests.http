@@ -1,0 +1,71 @@
+﻿### Create Vendor
+POST http://localhost:5000/api/Vendor/vendor
+Content-Type: application/json
+
+{
+  "name": "Punch & Judy"
+}
+
+### Get All Vendors
+GET http://localhost:5000/api/Vendor/all
+
+
+### Create Customer
+POST http://localhost:5000/api/Customer/customer
+Content-Type: application/json
+
+{
+  "firstName": "Tim",
+  "lastName": "Tom",
+  "phoneNumber": "1234567890"
+}
+
+### Get All Customers
+GET http://localhost:5000/api/Customer/all
+
+### Create Product 1
+
+POST http://localhost:5000/api/Product/product
+Content-Type: application/json
+
+{
+  "name": "Apple Punch",
+  "price": 2.20,
+  "vendorId": "63d259c8ae48da9805c3a4ae"
+}
+
+### Create Product 2
+
+POST http://localhost:5000/api/Product/product
+Content-Type: application/json
+
+{
+  "name": "Orange Punch",
+  "price": 2.20,
+  "vendorId": "63d259c8ae48da9805c3a4ae"
+}
+
+### Get All Products
+GET http://localhost:5000/api/Product/all
+
+### Create Order
+POST http://localhost:5000/api/Order/order
+Content-Type: application/json
+
+{
+  "customerId": "63d14f39db5391602dd1b2b7",
+  "orderItems": [
+    "63d25e690e4e7be89d68678a"
+  ]
+}
+
+### Add Product 2 to Order
+POST http://localhost:5000/api/Order/order/63d26397e752a6145591a2ab/product
+Content-Type: application/json
+
+{
+  "productId": "63d2653a02602ec9fbe758a1"
+}
+
+### Get All Orders
+GET http://localhost:5000/api/Order/all
