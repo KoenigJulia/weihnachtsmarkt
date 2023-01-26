@@ -13,10 +13,12 @@ public sealed class ProductController : ControllerBase
 {
     private readonly IProductService _productService;
     private readonly ITransactionProvider _transactionProvider;
+    private readonly IMapper _mapper;
 
     public ProductController(ILogger<ProductController> logger, IMapper mapper, IProductService productService,
         ITransactionProvider transactionProvider)
     {
+        _mapper = mapper;
         _productService = productService;
         _transactionProvider = transactionProvider;
     }
@@ -31,7 +33,7 @@ public sealed class ProductController : ControllerBase
             (product = await _productService.GetProductById(new ObjectId(productId))) == null)
             return BadRequest();
 
-        return Ok(product);
+        return Ok(_mapper.Map<ProductDto>(product));
     }
 
     [HttpGet]
@@ -39,7 +41,7 @@ public sealed class ProductController : ControllerBase
     public async Task<ActionResult<IReadOnlyCollection<Product>>> GetAll()
     {
         var products = await _productService.GetAllProducts();
-        return Ok(products);
+        return Ok(_mapper.Map<IReadOnlyCollection<ProductDto>>(products));
     }
 
     [HttpPost]
@@ -54,7 +56,7 @@ public sealed class ProductController : ControllerBase
         var product = await _productService.AddProduct(request.Name, request.Price, new ObjectId(request.VendorId));
         await transaction.CommitAsync();
 
-        return CreatedAtAction(nameof(GetById), new { id = product.Id.ToString() }, product);
+        return CreatedAtAction(nameof(GetById), new { id = product.Id.ToString() }, _mapper.Map<ProductDto>(product));
     }
 
     [HttpDelete]
