@@ -8,5 +8,5 @@ public class Order : EntityBase
 {
     public DateTime Created { get; set; }
     public ObjectId? CustomerId { get; set; }
-    public List<Product> OrderItems { get; set; } = new();
+    public List<ObjectId> OrderItems { get; set; } = new();
 }

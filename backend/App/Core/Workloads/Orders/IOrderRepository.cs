@@ -11,7 +11,7 @@ public interface IOrderRepository : IRepositoryBase
     Task<Order?> GetOrderById(ObjectId id);
     Task<bool> DeleteOrder(ObjectId id);
     Task<IReadOnlyCollection<Product>> GetOrderItemsForOrder(ObjectId orderId);
-    Task<bool> AddOrderItem(ObjectId orderId,Product orderItem);
-    Task<bool> DeleteOrderItemOfOrder(ObjectId orderId,Product orderItem);
+    Task<bool> AddOrderItem(ObjectId orderId,ObjectId orderItem);
+    Task<bool> DeleteOrderItemOfOrder(ObjectId orderId,ObjectId orderItem);
     Task<bool> DeleteOrderItemsOfOrder(ObjectId orderId);
 }

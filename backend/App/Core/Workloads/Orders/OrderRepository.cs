@@ -10,10 +10,13 @@ namespace MongoDBDemoApp.Core.Workloads.Orders;
 
 public sealed class OrderRepository : RepositoryBase<Order>, IOrderRepository
 {
-    public OrderRepository(ITransactionProvider transactionProvider, IDatabaseProvider databaseProvider) : base(
+    private readonly IProductRepository _productRepository;
+    
+    public OrderRepository(ITransactionProvider transactionProvider, IDatabaseProvider databaseProvider, 
+        IProductRepository productRepository) : base(
         transactionProvider, databaseProvider)
     {
-        
+        _productRepository = productRepository;
     }
 
     public override string CollectionName { get; } = MongoUtil.GetCollectionName<Order>();
@@ -61,10 +64,18 @@ public sealed class OrderRepository : RepositoryBase<Order>, IOrderRepository
 
     public async Task<IReadOnlyCollection<Product>> GetOrderItemsForOrder(ObjectId orderId)
     {
-        return await Query().Where(o => o.Id == orderId).Select(o => o.OrderItems).FirstOrDefaultAsync();
+        var orderItemIds = await Query().Where(o => o.Id == orderId).
+            Select(o => o.OrderItems).FirstOrDefaultAsync();
+        var list = new List<Product>();
+        foreach (var orderItemId in orderItemIds)
+        {
+            var product = await _productRepository.GetProductById(orderItemId);
+            if (product != null) list.Add(product);
+        }
+        return list;
     }
 
-    public async Task<bool> AddOrderItem(ObjectId orderId, Product orderItem)
+    public async Task<bool> AddOrderItem(ObjectId orderId, ObjectId orderItem)
     {
         var x = UpdateDefBuilder.Push(o => o.OrderItems, orderItem);
         var res = await UpdateOneAsync(orderId, x);
@@ -72,7 +83,7 @@ public sealed class OrderRepository : RepositoryBase<Order>, IOrderRepository
     }
 
 
-    public async Task<bool> DeleteOrderItemOfOrder(ObjectId orderId, Product orderItem)
+    public async Task<bool> DeleteOrderItemOfOrder(ObjectId orderId, ObjectId orderItem)
     {
         Order? order = await GetOrderById(orderId);
         if (order == default)

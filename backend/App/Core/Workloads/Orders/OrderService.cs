@@ -43,12 +43,12 @@ public sealed class OrderService : IOrderService
         return await _repository.GetOrderItemsForOrder(orderId);
     }
 
-    public async Task<bool> AddOrderItem(ObjectId orderId, Product orderItem)
+    public async Task<bool> AddOrderItem(ObjectId orderId, ObjectId orderItem)
     {
         return await _repository.AddOrderItem(orderId, orderItem);
     }
 
-    public async Task<bool> DeleteOrderItemOfOrder(ObjectId orderId, Product orderItem)
+    public async Task<bool> DeleteOrderItemOfOrder(ObjectId orderId, ObjectId orderItem)
     {
         return await _repository.DeleteOrderItemOfOrder(orderId, orderItem);
     }

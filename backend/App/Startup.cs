@@ -28,12 +28,12 @@ public class Startup
         services.AddLeoMongo<MongoConfig>();
 
         // for bigger assemblies it would be alright to register those via reflection by naming convention!
-        services.AddScoped<IOrderRepository, OrderRepository>();
-        services.AddScoped<ICustomerRepository, CustomerRepository>();
         /*services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<ICommentService, CommentService>();*/
         services.AddScoped<IVendorRepository, VendorRepository>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
         services.AddScoped<IPlaceRepository, PlaceRepository>();
         services.AddScoped<IVendorService, VendorService>();
         services.AddScoped<IProductService, ProductService>();
