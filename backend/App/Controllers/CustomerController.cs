@@ -13,6 +13,7 @@ public sealed class CustomerController : ControllerBase
 {
     private readonly ICustomerService _customerService;
     private readonly ITransactionProvider _transactionProvider;
+    private readonly IMapper _mapper;
 
 
     public CustomerController(ILogger<CommentController> logger,
@@ -20,6 +21,7 @@ public sealed class CustomerController : ControllerBase
         ICustomerService customerService,
         ITransactionProvider transactionProvider)
     {
+        _mapper = mapper;
         _customerService = customerService;
         _transactionProvider = transactionProvider;
     }
@@ -36,15 +38,15 @@ public sealed class CustomerController : ControllerBase
             return BadRequest();
         }
 
-        return Ok(customer);
+        return Ok(_mapper.Map<CustomerDto>(customer));
     }
 
     [HttpGet]
     [Route("all")]
     public async Task<ActionResult<IReadOnlyCollection<Customer>>> GetAll()
     {
-        var posts = await _customerService.GetCustomers();
-        return Ok(posts);
+        var customers = await _customerService.GetCustomers();
+        return Ok(_mapper.Map<IReadOnlyCollection<CustomerDto>>(customers));
     }
 
     [HttpPost]
@@ -67,7 +69,7 @@ public sealed class CustomerController : ControllerBase
         });
         await transaction.CommitAsync();
 
-        return CreatedAtAction(nameof(GetById), new {id = customer.Id.ToString()}, customer);
+        return CreatedAtAction(nameof(GetById), new {id = customer.Id.ToString()}, _mapper.Map<CustomerDto>(customer));
     }
 
     [HttpDelete]

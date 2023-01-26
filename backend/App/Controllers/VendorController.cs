@@ -13,10 +13,12 @@ public sealed class VendorController : ControllerBase
 {
     private readonly ITransactionProvider _transactionProvider;
     private readonly IVendorService _vendorService;
+    private readonly IMapper _mapper;
 
     public VendorController(ILogger<VendorController> logger, IMapper mapper, IVendorService vendorService,
         ITransactionProvider transactionProvider)
     {
+        _mapper = mapper;
         _vendorService = vendorService;
         _transactionProvider = transactionProvider;
     }
@@ -31,7 +33,7 @@ public sealed class VendorController : ControllerBase
             (vendor = await _vendorService.GetVendorById(new ObjectId(vendorId))) == null)
             return BadRequest();
 
-        return Ok(vendor);
+        return Ok(_mapper.Map<VendorDto>(vendor));
     }
 
     [HttpGet]
@@ -39,7 +41,7 @@ public sealed class VendorController : ControllerBase
     public async Task<ActionResult<IReadOnlyCollection<Vendor>>> GetAll()
     {
         var vendors = await _vendorService.GetAllVendors();
-        return Ok(vendors);
+        return Ok(_mapper.Map<IReadOnlyCollection<VendorDto>>(vendors));
     }
 
     [HttpPost]
@@ -53,7 +55,7 @@ public sealed class VendorController : ControllerBase
         var vendor = await _vendorService.AddVendor(request.Name);
         await transaction.CommitAsync();
 
-        return CreatedAtAction(nameof(GetById), new { id = vendor.Id.ToString() }, vendor);
+        return CreatedAtAction(nameof(GetById), new { id = vendor.Id.ToString() }, _mapper.Map<VendorDto>(vendor));
     }
 
     [HttpDelete]

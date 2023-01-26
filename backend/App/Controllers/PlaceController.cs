@@ -11,6 +11,7 @@ namespace MongoDBDemoApp.Controllers;
 [ApiController]
 public sealed class PlaceController : ControllerBase
 {
+    private readonly IMapper _mapper;
     private readonly IPlaceService _placeService;
     private readonly ITransactionProvider _transactionProvider;
 
@@ -19,6 +20,7 @@ public sealed class PlaceController : ControllerBase
     {
         _placeService = placeService;
         _transactionProvider = transactionProvider;
+        _mapper = mapper;
     }
 
 
@@ -32,7 +34,7 @@ public sealed class PlaceController : ControllerBase
             (place = await _placeService.GetPlaceById(new ObjectId(placeId))) == null)
             return BadRequest();
 
-        return Ok(place);
+        return Ok(_mapper.Map<PlaceDto>(place));
     }
 
     [HttpGet]
@@ -40,7 +42,7 @@ public sealed class PlaceController : ControllerBase
     public async Task<ActionResult<IReadOnlyCollection<Place>>> GetAll()
     {
         var places = await _placeService.GetAllPlaces();
-        return Ok(places);
+        return Ok(_mapper.Map<List<PlaceDto>>(places));
     }
 
     [HttpPost]
@@ -51,7 +53,7 @@ public sealed class PlaceController : ControllerBase
         var place = await _placeService.AddPlace(request.PlaceNr);
         await transaction.CommitAsync();
 
-        return CreatedAtAction(nameof(GetById), new { id = place.Id.ToString() }, place);
+        return CreatedAtAction(nameof(GetById), new { id = place.Id.ToString() }, _mapper.Map<PlaceDto>(place));
     }
 
     [HttpDelete]
