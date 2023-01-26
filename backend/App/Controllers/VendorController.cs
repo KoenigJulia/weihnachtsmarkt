@@ -41,7 +41,7 @@ public sealed class VendorController : ControllerBase
     public async Task<ActionResult<IReadOnlyCollection<Vendor>>> GetAll()
     {
         var vendors = await _vendorService.GetAllVendors();
-        return Ok(_mapper.Map<List<VendorDto>>(vendors));
+        return Ok(_mapper.Map<IReadOnlyCollection<VendorDto>>(vendors));
     }
 
     [HttpPost]
