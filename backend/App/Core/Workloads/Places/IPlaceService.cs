@@ -8,4 +8,6 @@ public interface IPlaceService
     Task<Place?> GetPlaceById(ObjectId id);
     Task<Place> AddPlace(int placeNr);
     Task DeletePlace(ObjectId id);
+    Task<bool> ReservePlace(ObjectId vendorId, ObjectId placeId);
+    Task<List<Place>> GetFreePlaces();
 }

@@ -1,14 +1,17 @@
 using MongoDB.Bson;
+using MongoDBDemoApp.Core.Workloads.Vendors;
 
 namespace MongoDBDemoApp.Core.Workloads.Products;
 
 public class ProductService: IProductService
 {
     private readonly IProductRepository _repository;
+    private readonly IVendorRepository _vendorRepository;
 
-    public ProductService(IProductRepository productRepository)
+    public ProductService(IProductRepository productRepository, IVendorRepository vendorRepository)
     {
         _repository = productRepository;
+        _vendorRepository = vendorRepository;
     }
     
     public Task<IReadOnlyCollection<Product>> GetAllProducts()
@@ -21,14 +24,16 @@ public class ProductService: IProductService
         return _repository.GetProductById(id);
     }
 
-    public Task<Product> AddProduct(string name, float price, ObjectId vendorId)
+    public async Task<Product> AddProduct(string name, float price, ObjectId vendorId)
     {
         Product product = new Product()
         {
             Name = name,
             Price = price
         };
-        return _repository.AddProduct(product);
+        var p = await _repository.AddProduct(product);
+        await _vendorRepository.AddProductToVendor(p.Id, vendorId);
+        return p;
     }
 
     public Task DeleteProduct(ObjectId id)

@@ -36,4 +36,23 @@ public class VendorRepository: RepositoryBase<Vendor>, IVendorRepository
     {
         return DeleteOneAsync(id);
     }
+
+    public async Task<bool> AddProductToVendor(ObjectId productId, ObjectId vendorId)
+    {
+        var x = UpdateDefBuilder.Push(v => v.Products, productId);
+        var res = await UpdateOneAsync(vendorId, x);
+        return res is { IsAcknowledged: true, ModifiedCount: 1 };
+    }
+
+    public async Task<bool> AddEmployeeToVendor(Employee employee, ObjectId vendorId)
+    {
+        var x = UpdateDefBuilder.Push(v => v.Employees, employee);
+        var res = await UpdateOneAsync(vendorId, x);
+        return res is { IsAcknowledged: true, ModifiedCount: 1 };
+    }
+
+    public async Task<List<Employee>> GetAllEmployees()
+    {
+        return await Query().Select(v => v.Employees).SelectMany(x => x).ToListAsync();
+    }
 }
