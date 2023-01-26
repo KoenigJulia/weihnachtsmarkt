@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using MongoDBDemoApp.Core.Workloads.Customers;
 using MongoDBDemoApp.Core.Workloads.Orders;
+using MongoDBDemoApp.Core.Workloads.Places;
 using MongoDBDemoApp.Core.Workloads.Products;
 using MongoDBDemoApp.Core.Workloads.Vendors;
 using MongoDBDemoApp.Model.CreateCustomerRequest;
 using MongoDBDemoApp.Model.Order;
+using MongoDBDemoApp.Model.Place;
 using MongoDBDemoApp.Model.Product;
 using MongoDBDemoApp.Model.Vendor;
 
@@ -33,5 +35,13 @@ public sealed class MapperProfile : Profile
                 m => m.MapFrom(o => o.CustomerId.ToString()))
             .ForMember(o => o.OrderItems,
                 m => m.MapFrom(o => o.OrderItems.Select(oi => oi.ToString())));
+
+        CreateMap<Place, PlaceDto>()
+            .ForMember(p => p.Id,
+                m => m.MapFrom(p => p.Id.ToString()))
+            .ForMember(p => p.PlaceNr,
+                m => m.MapFrom(p => p.PlaceNr))
+            .ForMember(p => p.VendorId,
+                m => m.MapFrom(p => p.VendorId.ToString()));
     }
 }
