@@ -1,0 +1,9 @@
+<span>Select vendor: </span>
+<mat-form-field>
+    <mat-select placeholder="Select vendor" [(value)]="selectedVendor">
+      <mat-option *ngFor="let vendor of vendors" [value]="vendor.id">
+        {{ vendor.name }}
+      </mat-option>
+    </mat-select>
+</mat-form-field>
+<button type="button" class="btn btn-primary px-3" (click)="reservePlace()">Reservieren</button>

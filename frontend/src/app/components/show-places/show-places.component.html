@@ -1,0 +1,32 @@
+<div class="container" style="margin-top: 10px;">
+    <h3 style="text-align: center;">Overview</h3>
+    <button (click)="addPlace()" style="width: 200px;" type="button" class="btn btn-primary px-3"><i class="fas fa-plus" aria-hidden="true"></i></button>
+    <table style="margin-top: 5px;" class="table table-stripped">
+      <thead>
+        <tr>
+          <th scope="col">Place</th>
+          <th scope="col">Vendor</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let place of places">
+        <tr
+        [ngClass]="{'bg-secondary bg-opacity-10' : place == clickedPlace}"
+        (mouseover)="clickedPlace=place" (mouseleave)="clickedPlace=null">
+          <th scope="row">{{place.placeNr}}</th>
+          <td>{{place.vendorId != null ? getVendor(place.vendorId).name : "Keine Reservierung"}}</td>
+          <td>
+            <button type="button" class="btn btn-primary px-3" (click)="reservePlace()">Reservieren</button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-primary px-3"><i class="fas fa-eye" aria-hidden="true"></i></button>
+          </td>
+          <td>
+            <button style="background-color: red; border-color: red; margin-left: 50px;" type="button" class="btn btn-primary px-3"><i class="fas fa-trash-alt" aria-hidden="true"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

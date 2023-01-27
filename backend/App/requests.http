@@ -6,8 +6,23 @@ Content-Type: application/json
   "name": "Punch & Judy"
 }
 
+### Create Place
+POST http://localhost:5000/api/Place/place
+Content-Type: application/json
+
+{"placeNr": "6", "vendorId": "63d3c1fcb160cc2760d2d089"}
+
+
+
 ### Get All Vendors
 GET http://localhost:5000/api/Vendor/all
+
+### Get Vendor By Id
+GET http://localhost:5000/api/Vendor/vendor
+
+{
+  "vendorId": "63d3c1fcb160cc2760d2d089"
+}
 
 
 ### Create Customer
