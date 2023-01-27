@@ -64,4 +64,15 @@ public sealed class PlaceController : ControllerBase
         await _placeService.DeletePlace(new ObjectId(id));
         return Ok(true);
     }
+
+    [HttpPost]
+    [Route("reserve")]
+    public async Task<IActionResult> ReservePlace([FromBody] ReservePlaceRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(request.VendorId) || string.IsNullOrWhiteSpace(request.PlaceId))
+            return BadRequest();
+
+        var res = await _placeService.ReservePlace(new ObjectId(request.VendorId), new ObjectId(request.PlaceId));
+        return Ok(res);
+    }
 }

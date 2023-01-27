@@ -7,14 +7,15 @@ using MongoDB.Driver.Linq;
 
 namespace MongoDBDemoApp.Core.Workloads.Places;
 
-public class PlaceRepository: RepositoryBase<Place>, IPlaceRepository
+public class PlaceRepository : RepositoryBase<Place>, IPlaceRepository
 {
-    public PlaceRepository(ITransactionProvider transactionProvider, IDatabaseProvider databaseProvider) : base(transactionProvider, databaseProvider)
+    public PlaceRepository(ITransactionProvider transactionProvider, IDatabaseProvider databaseProvider) : base(
+        transactionProvider, databaseProvider)
     {
     }
 
     public override string CollectionName { get; } = MongoUtil.GetCollectionName<Place>();
-    
+
 
     public Task<Place> AddPlace(Place place)
     {
@@ -39,7 +40,7 @@ public class PlaceRepository: RepositoryBase<Place>, IPlaceRepository
     public async Task<bool> ReservePlace(ObjectId vendorId, ObjectId placeId)
     {
         var x = UpdateDefBuilder.Set(p => p.VendorId, vendorId);
-        var res = await UpdateOneAsync(vendorId, x);
+        var res = await UpdateOneAsync(placeId, x);
         return res is { IsAcknowledged: true, ModifiedCount: 1 };
     }
 
