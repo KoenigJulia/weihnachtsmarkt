@@ -16,7 +16,7 @@
         [ngClass]="{'bg-secondary bg-opacity-10' : place == clickedPlace}"
         (mouseover)="clickedPlace=place" (mouseleave)="clickedPlace=null">
           <th scope="row">{{place.placeNr}}</th>
-          <td>{{place.vendorId != null ? getVendor(place.vendorId).name : "Keine Reservierung"}}</td>
+          <td>{{place.vendorId != null ? getVendor(place.vendorId) : "Keine Reservierung"}}</td>
           <td>
             <button type="button" class="btn btn-primary px-3" (click)="reservePlace()">Reservieren</button>
           </td>

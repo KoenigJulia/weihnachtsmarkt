@@ -15,7 +15,7 @@ export class ReserveDialogComponent implements OnInit {
   }
 
   vendors: Vendor[] | null = null;
-  selectedVendor: Vendor | null = null;
+  selectedVendor: string | null = null;
   reservedPlace: ReservePlace = new ReservePlace;
 
   ngOnInit(): void {
@@ -31,14 +31,14 @@ export class ReserveDialogComponent implements OnInit {
 
   reservePlace():void{
     if(this.selectedVendor != null){
-      this.reservedPlace.vendorId = this.selectedVendor.id;
+      this.reservedPlace.vendorId = this.selectedVendor;
       this.reservedPlace.placeId = this.data.clickedPlace.id;
-      this.data.placeService.reservePlace().subscribe({
+      this.data.placeService.reservePlace(this.reservedPlace).subscribe({
         next: (data: any) =>{
-          this.data.dialog.close()
+          this.data.dialog.closeAll()
         },
         error: (error: { message: string; }) => {
-          alert('Saving failed!' + error.message);
+          alert('Saving failed! ' + error.message);
         }
       });
     } 

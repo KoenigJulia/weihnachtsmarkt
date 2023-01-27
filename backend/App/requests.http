@@ -3,14 +3,14 @@ POST http://localhost:5000/api/Vendor/vendor
 Content-Type: application/json
 
 {
-  "name": "Punch & Judy"
+  "name": "Punch"
 }
 
 ### Create Place
 POST http://localhost:5000/api/Place/place
 Content-Type: application/json
 
-{"placeNr": "6", "vendorId": "63d3c1fcb160cc2760d2d089"}
+{"placeNr": "2", "vendorId": "63d3c1fcb160cc2760d2d089"}
 
 
 

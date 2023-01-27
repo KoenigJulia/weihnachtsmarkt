@@ -22,7 +22,7 @@ export class PlaceService {
   }
 
   reservePlace(newPlace: ReservePlace){
-    return this.http.post<Place>(this.placeUrl+"reserve", newPlace, httpOptions)
+    return this.http.post<ReservePlace>(this.placeUrl+"reserve", newPlace, httpOptions)
   }
 
   deletePlace(id: string){
