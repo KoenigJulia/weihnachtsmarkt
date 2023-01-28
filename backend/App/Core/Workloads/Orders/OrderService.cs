@@ -57,4 +57,9 @@ public sealed class OrderService : IOrderService
     {
         return await _repository.DeleteProductsOfOrder(orderId);
     }
+
+    public Task<bool> DeleteOrdersOfCustomer(ObjectId customerId)
+    {
+        return _repository.DeleteOrdersOfCustomer(customerId);
+    }
 }

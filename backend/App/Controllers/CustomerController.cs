@@ -3,6 +3,7 @@ using LeoMongo.Transaction;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDBDemoApp.Core.Workloads.Customers;
+using MongoDBDemoApp.Core.Workloads.Orders;
 using MongoDBDemoApp.Model.CreateCustomerRequest;
 
 namespace MongoDBDemoApp.Controllers;
@@ -12,6 +13,7 @@ namespace MongoDBDemoApp.Controllers;
 public sealed class CustomerController : ControllerBase
 {
     private readonly ICustomerService _customerService;
+    private readonly IOrderService _orderService;
     private readonly ITransactionProvider _transactionProvider;
     private readonly IMapper _mapper;
 
@@ -19,11 +21,13 @@ public sealed class CustomerController : ControllerBase
     public CustomerController(ILogger<CommentController> logger,
         IMapper mapper,
         ICustomerService customerService,
-        ITransactionProvider transactionProvider)
+        ITransactionProvider transactionProvider,
+        IOrderService orderService)
     {
         _mapper = mapper;
         _customerService = customerService;
         _transactionProvider = transactionProvider;
+        _orderService = orderService;
     }
 
     [HttpGet]
@@ -82,5 +86,18 @@ public sealed class CustomerController : ControllerBase
         }
 
         return Ok(await _customerService.DeleteCustomer(new ObjectId(id)));
+    }
+    
+    [HttpDelete]
+    [Route("deleteOrders/{customerId}")]
+    public async Task<IActionResult> DeleteOrder(string customerId)
+    {
+        var customer = await _customerService.GetCustomerById(new ObjectId(customerId));
+        if (customer == null)
+        {
+            return BadRequest();
+        }
+
+        return Ok(await _orderService.DeleteOrder(new ObjectId(customerId)));
     }
 }
