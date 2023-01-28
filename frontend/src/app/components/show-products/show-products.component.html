@@ -1,7 +1,9 @@
 <div class="container" style="margin-top: 10px;">
     <h3 style="text-align: center;">Overview</h3>
-    <button (click)="addProduct()" style="width: 230px;" type="button" class="btn btn-primary px-3"><i class="fas fa-plus"
-            aria-hidden="true" style="margin-right: 10px;"></i> Add place or vendor</button>
+    <button (click)="back()" style="width: 150px; background-color: black; border-color: black;" type="button" class="btn btn-primary px-3"><i
+        class="fas fa-arrow-left" aria-hidden="true" style="margin-right: 10px;"></i>Back</button>
+    <button (click)="addProduct()" style="width: 230px;" type="button" class="btn btn-primary px-3"><i
+            class="fas fa-plus" aria-hidden="true" style="margin-right: 10px;"></i> Add place or vendor</button>
     <table style="margin-top: 5px;" class="table table-stripped">
         <thead>
             <tr>
@@ -11,8 +13,8 @@
             </tr>
         </thead>
         <tbody *ngFor="let product of products">
-            <tr [ngClass]="{'bg-secondary bg-opacity-10' : product == clickedProduct}" (mouseover)="clickedProduct=product"
-                (mouseleave)="clickedProduct=null">
+            <tr [ngClass]="{'bg-secondary bg-opacity-10' : product == clickedProduct}"
+                (mouseover)="clickedProduct=product" (mouseleave)="clickedProduct=null">
                 <th scope="row">{{product.name}}</th>
                 <td>{{product.price}}</td>
                 <td>

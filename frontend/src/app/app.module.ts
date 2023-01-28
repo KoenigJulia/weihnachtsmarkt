@@ -14,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 import { DeleteVendorComponent } from './components/delete-vendor/delete-vendor.component';
 import { ShowProductsComponent } from './components/show-products/show-products.component';
 import { AddProductComponent } from './components/show-products/add-product/add-product.component';
+import { CustomerLoginComponent } from './components/customer-login/customer-login.component';
+import { ShowCustomerComponent } from './components/show-customer/show-customer.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { AddProductComponent } from './components/show-products/add-product/add-
     AddPlaceComponent,
     DeleteVendorComponent,
     ShowProductsComponent,
-    AddProductComponent
+    AddProductComponent,
+    CustomerLoginComponent,
+    ShowCustomerComponent
   ],
   imports: [
     BrowserModule,

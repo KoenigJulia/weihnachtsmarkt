@@ -1,0 +1,30 @@
+<div class="container">
+    <h3 style="text-align: center; margin-top: 20px;">Are you Customer?</h3>
+    <div>
+        <span>ObjectId eingeben:</span>
+        <input style="margin-left: 10px;" [(ngModel)]="customerId">
+    </div>
+    <div>
+        <button style="margin-top: 30px; width: 100px; background-color: green; border-color: green;" type="button"
+            class="btn btn-primary px-3" (click)="login()">Login</button>
+    </div>
+    <h3 style="text-align: center; margin-top: 40px;">Wanna be a Customer?</h3>
+    <div>
+        <div>
+            <span>FirstName</span>
+            <input style="margin-left: 41px;" [(ngModel)]="customer.firstName">
+        </div>
+        <div style="margin-top: 5px;">
+            <span>LastName</span>
+            <input style="margin-left:41px;" [(ngModel)]="customer.lastName">
+        </div>
+        <div style="margin-top: 5px;">
+            <span>PhoneNumber</span>
+            <input style="margin-left: 10px;" [(ngModel)]="customer.phoneNumber">
+        </div>
+        <div>
+            <button style="margin-top: 30px; width: 100px; background-color: green; border-color: green;" type="button"
+                class="btn btn-primary px-3" (click)="create()">Create</button>
+        </div>    
+    </div>
+</div>

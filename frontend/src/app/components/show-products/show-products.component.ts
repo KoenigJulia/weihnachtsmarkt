@@ -14,35 +14,54 @@ import { Vendor } from 'src/app/models/vendor.model';
 })
 export class ShowProductsComponent implements OnInit {
 
+  allProducts: Product[] = []
   products: Product[] = []
   vendorId: string = "";
   vendor: Vendor | null = null;
   clickedProduct: Product | null = null;
 
-  constructor(private router: ActivatedRoute, private dialog: MatDialog, private productService: ProductService,
+  constructor(private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private productService: ProductService,
     private vendorService: VendorService) { }
 
   ngOnInit(): void {
-    this.router.params.subscribe(params => {this.vendorId = params['id']})
-    this.reload()
+    this.route.params.subscribe(params => { this.vendorId = params['id'] })
+    this.reloadVendor()
   }
 
-  reload():void{
+  reloadVendor():void{
     this.vendorService.getProducts(this.vendorId).subscribe({
-      next: (data: Vendor) =>{
+      next: (data: Vendor) => {
         this.vendor = data
-        this.products = data.products
+        this.reloadProducts()
       },
-      error: (error: any) =>{
+      error: (error: any) => {
+        alert("Failed loading vendor!" + error.message);
+      }
+    })
+  }
+
+  reloadProducts(): void {
+    this.products = []
+    this.allProducts = []
+    this.productService.getAll().subscribe({
+      next: (data: Product[]) => {
+        this.allProducts = data
+        this.vendor!.products.forEach(element => {
+          if (this.allProducts.find(p => p.id == element)) {
+            this.products.push(this.allProducts.find(p => p.id == element)!)
+          }
+        })
+      },
+      error: (error: any) => {
         alert("Failed loading products!" + error.message);
       }
     })
   }
 
-  deleteProduct(id: string):void{
+  deleteProduct(id: string): void {
     this.productService.deleteProduct(id).subscribe({
-      next: data =>{
-        this.reload()
+      next: data => {
+        this.reloadVendor()
       },
       error: error => {
         alert("Deleting failed! " + error.mess)
@@ -50,8 +69,12 @@ export class ShowProductsComponent implements OnInit {
     })
   }
 
-  addProduct():void{
-    this.dialog.open(AddProductComponent, {data: { productService: this.productService, vendor: this.vendor, dialog: this.dialog}})
-    .afterClosed().subscribe(() => this.reload())
+  addProduct(): void {
+    this.dialog.open(AddProductComponent, { data: { productService: this.productService, vendor: this.vendor, dialog: this.dialog } })
+      .afterClosed().subscribe(() => this.reloadVendor())
+  }
+
+  back(): void {
+    this.router.navigate(['/showPlaces']);
   }
 }
