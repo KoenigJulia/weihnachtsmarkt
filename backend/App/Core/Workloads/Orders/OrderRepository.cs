@@ -121,7 +121,7 @@ public sealed class OrderRepository : RepositoryBase<Order>, IOrderRepository
 
     public async Task<float> GetOrderPrice(ObjectId orderId)
     {
-        var q = (await Query().Where(o => o.Id == orderId).Select(o => o.OrderItems).FirstOrDefaultAsync()!).Join(
+        var q = (await Query().Where(o => o.Id == orderId).Select(o => o.Products).FirstOrDefaultAsync()!).Join(
             (await this.GetCollection<Product>(_productRepository.CollectionName).AsQueryable().ToListAsync()),
             o => o, 
             p => p.Id, 
