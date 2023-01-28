@@ -62,4 +62,9 @@ public sealed class OrderService : IOrderService
     {
         return _repository.DeleteOrdersOfCustomer(customerId);
     }
+
+    public Task<float> GetOrderPrice(ObjectId orderId)
+    {
+        return _repository.GetOrderPrice(orderId);
+    }
 }

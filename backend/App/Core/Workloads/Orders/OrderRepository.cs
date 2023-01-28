@@ -11,11 +11,15 @@ namespace MongoDBDemoApp.Core.Workloads.Orders;
 public sealed class OrderRepository : RepositoryBase<Order>, IOrderRepository
 {
     private readonly IProductRepository _productRepository;
+    private readonly IDatabaseProvider _databaseProvider;
+    
+    private IMongoCollection<TCollection> GetCollection<TCollection>(string collectionName) => this._databaseProvider.Database.GetCollection<TCollection>(collectionName);
     
     public OrderRepository(ITransactionProvider transactionProvider, IDatabaseProvider databaseProvider, 
         IProductRepository productRepository) : base(
         transactionProvider, databaseProvider)
     {
+        _databaseProvider = databaseProvider;
         _productRepository = productRepository;
     }
 
@@ -114,10 +118,22 @@ public sealed class OrderRepository : RepositoryBase<Order>, IOrderRepository
         ReplaceOneResult? res = await ReplaceOneAsync(order);
         return res is { IsAcknowledged: true, ModifiedCount: 1 };
     }
-    
+
+    public async Task<float> GetOrderPrice(ObjectId orderId)
+    {
+        var q = (await Query().Where(o => o.Id == orderId).Select(o => o.OrderItems).FirstOrDefaultAsync()!).Join(
+            (await this.GetCollection<Product>(_productRepository.CollectionName).AsQueryable().ToListAsync()),
+            o => o, 
+            p => p.Id, 
+            (order, product) => (product.Price)).Sum();
+        return q;
+    }
+
     public async Task<bool> DeleteOrdersOfCustomer(ObjectId customerId)
     {
         var res = await DeleteManyAsync(o => o.CustomerId == customerId);
         return res.IsAcknowledged;
     }
+    
+    
 }

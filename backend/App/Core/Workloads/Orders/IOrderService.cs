@@ -13,6 +13,5 @@ public interface IOrderService : IRepositoryBase
     Task<IReadOnlyCollection<Product>> GetProductsForOrder(ObjectId orderId);
     Task<bool> AddProduct(ObjectId orderId,ObjectId product);
     Task<bool> DeleteProductOfOrder(ObjectId orderId,ObjectId product);
-    Task<bool> DeleteProductsOfOrder(ObjectId orderId);
-    Task<bool> DeleteOrdersOfCustomer(ObjectId customerId);
+    Task<float> GetOrderPrice(ObjectId orderId);
 }
