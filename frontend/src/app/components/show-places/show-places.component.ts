@@ -51,6 +51,10 @@ export class ShowPlacesComponent implements OnInit {
     .afterClosed().subscribe(() => this.reload())
   }
 
+  showProducts(place: Place):void{
+    this.router.navigate(['/showProducts/' +place.vendorId])
+  }
+
   deletePlace(placeId: string):void{
     this.placeService.deletePlace(placeId).subscribe({
       next: data =>{

@@ -33,4 +33,8 @@ export class VendorService {
   deleteVendor(id: string){
     return this.http.delete<Vendor>(this.placeUrl + "?id=" + id, httpOptions)
   }
+
+  getProducts(id: string){
+    return this.http.get<Vendor>(this.placeUrl + "vendor?vendorId="+id);
+  }
 }

@@ -13,6 +13,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { DeleteVendorComponent } from './components/delete-vendor/delete-vendor.component';
 import { ShowProductsComponent } from './components/show-products/show-products.component';
+import { AddProductComponent } from './components/show-products/add-product/add-product.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ShowProductsComponent } from './components/show-products/show-products.
     ShowPlacesComponent,
     AddPlaceComponent,
     DeleteVendorComponent,
-    ShowProductsComponent
+    ShowProductsComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,
