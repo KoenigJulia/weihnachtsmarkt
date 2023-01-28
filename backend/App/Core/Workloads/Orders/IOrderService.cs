@@ -14,4 +14,5 @@ public interface IOrderService : IRepositoryBase
     Task<bool> AddOrderItem(ObjectId orderId,ObjectId orderItem);
     Task<bool> DeleteOrderItemOfOrder(ObjectId orderId,ObjectId orderItem);
     Task<bool> DeleteOrderItemsOfOrder(ObjectId orderId);
+    Task<float> GetOrderPrice(ObjectId orderId);
 }
