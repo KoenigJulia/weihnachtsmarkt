@@ -1,3 +1,5 @@
+import { DeleteVendorComponent } from './../delete-vendor/delete-vendor.component';
+import { AddPlaceComponent } from './../add-place/add-place.component';
 import { ReserveDialogComponent } from './reserve-dialog/reserve-dialog.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -44,10 +46,25 @@ export class ShowPlacesComponent implements OnInit {
     })
   }
 
-  reservePlace():void{
-    this.dialog.open(ReserveDialogComponent, {data: { clickedPlace: this.clickedPlace, vendorService: this.vendorService, placeService: this.placeService, dialog: this.dialog}})
+  deleteVendor():void{
+    this.dialog.open(DeleteVendorComponent, {data: { vendorService: this.vendorService, placeService: this.placeService, dialog: this.dialog}})
     .afterClosed().subscribe(() => this.reload())
-    
+  }
+
+  deletePlace(placeId: string):void{
+    this.placeService.deletePlace(placeId).subscribe({
+      next: data =>{
+        this.reload()
+      },
+      error: error => {
+        alert("Deleting failed! " + error.mess)
+      }
+    })
+  }
+
+  reservePlace():void{
+    this.dialog.open(ReserveDialogComponent, {data: { vendorService: this.vendorService, placeService: this.placeService, dialog: this.dialog}})
+    .afterClosed().subscribe(() => this.reload())
   }
 
   getVendor(vendorId: string): any{
@@ -56,7 +73,8 @@ export class ShowPlacesComponent implements OnInit {
   }
 
   addPlace():void{
-    this.router.navigate(['/addPlace'])
+    this.dialog.open(AddPlaceComponent, {data: { clickedPlace: this.clickedPlace, vendorService: this.vendorService, placeService: this.placeService, dialog: this.dialog}})
+    .afterClosed().subscribe(() => this.reload())
   }
 
 }

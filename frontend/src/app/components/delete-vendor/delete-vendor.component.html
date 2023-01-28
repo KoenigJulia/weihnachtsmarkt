@@ -1,0 +1,11 @@
+<div class="container">
+    <h3>Delete vendor</h3>
+    <mat-form-field>
+        <mat-select placeholder="Select vendor" [(value)]="selectedVendor">
+          <mat-option *ngFor="let vendor of vendors" [value]="vendor.id">
+            {{ vendor.name }}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button style="float: right; width: 100px; background-color: red; border-color: red;" type="button" class="btn btn-primary px-3" (click)="deleteVendor()">Delete</button>
+</div>

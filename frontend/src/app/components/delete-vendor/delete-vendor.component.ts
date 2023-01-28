@@ -1,21 +1,17 @@
-import { Place, ReservePlace } from './../../../models/place.model';
-import { Vendor } from './../../../models/vendor.model';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Vendor } from 'src/app/models/vendor.model';
 
 @Component({
-  selector: 'app-reserve-dialog',
-  templateUrl: './reserve-dialog.component.html',
-  styleUrls: ['./reserve-dialog.component.scss']
+  selector: 'app-delete-vendor',
+  templateUrl: './delete-vendor.component.html',
+  styleUrls: ['./delete-vendor.component.scss']
 })
-export class ReserveDialogComponent implements OnInit {
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { 
-  }
-
+export class DeleteVendorComponent implements OnInit {
   vendors: Vendor[] | null = null;
   selectedVendor: string | null = null;
-  reservedPlace: ReservePlace = new ReservePlace;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
     this.data.vendorService.getAll().subscribe({
@@ -28,11 +24,9 @@ export class ReserveDialogComponent implements OnInit {
     });
   }
 
-  reservePlace():void{
+  deleteVendor():void{
     if(this.selectedVendor != null){
-      this.reservedPlace.vendorId = this.selectedVendor;
-      this.reservedPlace.placeId = this.data.clickedPlace.id;
-      this.data.placeService.reservePlace(this.reservedPlace).subscribe({
+      this.data.vendorService.deleteVendor(this.selectedVendor).subscribe({
         next: (data: any) =>{
           this.data.dialog.closeAll()
         },

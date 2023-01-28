@@ -10,13 +10,18 @@ import { AddPlaceComponent } from './components/add-place/add-place.component';
 import { MatDialogModule } from '../../node_modules/@angular/material/dialog'
 import {MatSelectModule} from '@angular/material/select';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { DeleteVendorComponent } from './components/delete-vendor/delete-vendor.component';
+import { ShowProductsComponent } from './components/show-products/show-products.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ReserveDialogComponent,
     ShowPlacesComponent,
-    AddPlaceComponent
+    AddPlaceComponent,
+    DeleteVendorComponent,
+    ShowProductsComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +29,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     NoopAnimationsModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

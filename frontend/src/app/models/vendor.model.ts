@@ -7,3 +7,10 @@ export interface Vendor {
     products: Product[],
     employees: Employee[]
 }
+
+export interface AddVendor{
+    name: string
+}
+
+export class AddVendor implements AddVendor{
+}

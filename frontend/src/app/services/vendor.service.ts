@@ -1,6 +1,13 @@
-import { HttpClient } from '@angular/common/http';
+import { AddVendor } from './../models/vendor.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Vendor } from '../models/vendor.model';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+  'Content-Type': 'application/json'
+  })
+}
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +24,13 @@ export class VendorService {
 
   getAll(){
     return this.http.get<Vendor[]>(this.placeUrl + "all");
+  }
+
+  addVendor(vendor: AddVendor){
+    return this.http.post<AddVendor>(this.placeUrl+ "vendor", vendor, httpOptions);
+  }
+
+  deleteVendor(id: string){
+    return this.http.delete<Vendor>(this.placeUrl + "?id=" + id, httpOptions)
   }
 }

@@ -1,6 +1,7 @@
 <div class="container" style="margin-top: 10px;">
     <h3 style="text-align: center;">Overview</h3>
-    <button (click)="addPlace()" style="width: 200px;" type="button" class="btn btn-primary px-3"><i class="fas fa-plus" aria-hidden="true"></i></button>
+    <button (click)="addPlace()" style="width: 230px;" type="button" class="btn btn-primary px-3"><i class="fas fa-plus" aria-hidden="true" style="margin-right: 10px;"></i> Add place or vendor</button>
+    <button style="background-color: red; border-color: red; margin-left: 50px; width: 230px;" type="button" class="btn btn-primary px-3" (click)="deleteVendor()"><i class="fas fa-trash-alt" aria-hidden="true" style="margin-right: 20px;"></i>Delete vendor</button>
     <table style="margin-top: 5px;" class="table table-stripped">
       <thead>
         <tr>
@@ -18,13 +19,13 @@
           <th scope="row">{{place.placeNr}}</th>
           <td>{{place.vendorId != null ? getVendor(place.vendorId) : "Keine Reservierung"}}</td>
           <td>
-            <button type="button" class="btn btn-primary px-3" (click)="reservePlace()">Reservieren</button>
+            <button type="button" class="btn btn-primary px-3" (click)="reservePlace()">Reservate</button>
           </td>
           <td>
             <button type="button" class="btn btn-primary px-3"><i class="fas fa-eye" aria-hidden="true"></i></button>
           </td>
           <td>
-            <button style="background-color: red; border-color: red; margin-left: 50px;" type="button" class="btn btn-primary px-3"><i class="fas fa-trash-alt" aria-hidden="true"></i></button>
+            <button style="background-color: red; border-color: red; margin-left: 50px;" type="button" class="btn btn-primary px-3" (click)="deletePlace(place.id)"><i class="fas fa-trash-alt" aria-hidden="true"></i></button>
           </td>
         </tr>
       </tbody>

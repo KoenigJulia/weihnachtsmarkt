@@ -1,7 +1,7 @@
-import { ReservePlace } from './../models/reserve-place.model';
+import { AddPlace } from './../models/place.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Place } from '../models/place.model';
+import { Place, ReservePlace } from '../models/place.model';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -29,8 +29,8 @@ export class PlaceService {
     return this.http.delete<Place>(this.placeUrl + "?id=" + id, httpOptions)
   }
 
-  addPlace(newPlace: Place){
-    return this.http.post<Place>(this.placeUrl, newPlace, httpOptions);
+  addPlace(newPlace: AddPlace){
+    return this.http.post<AddPlace>(this.placeUrl+ "place", newPlace, httpOptions);
   }
 
 }
