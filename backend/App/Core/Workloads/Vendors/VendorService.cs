@@ -1,14 +1,17 @@
 using MongoDB.Bson;
+using MongoDBDemoApp.Core.Workloads.Places;
 
 namespace MongoDBDemoApp.Core.Workloads.Vendors;
 
 public sealed class VendorService: IVendorService
 {
     private readonly IVendorRepository _repository;
+    private readonly IPlaceRepository _placeRepository;
     
-    public VendorService(IVendorRepository repository)
+    public VendorService(IVendorRepository repository, IPlaceRepository placeRepository)
     {
         _repository = repository;
+        _placeRepository = placeRepository;
     }
     
     public Task<IReadOnlyCollection<Vendor>> GetAllVendors()
@@ -32,6 +35,7 @@ public sealed class VendorService: IVendorService
 
     public Task DeleteVendor(ObjectId id)
     {
+        _placeRepository.UnreservePlaceForVendor(id);
         return _repository.DeleteVendor(id);
     }
 
