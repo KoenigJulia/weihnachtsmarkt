@@ -57,4 +57,9 @@ public sealed class OrderService : IOrderService
     {
         return await _repository.DeleteOrderItemsOfOrder(orderId);
     }
+
+    public Task<float> GetOrderPrice(ObjectId orderId)
+    {
+        return _repository.GetOrderPrice(orderId);
+    }
 }

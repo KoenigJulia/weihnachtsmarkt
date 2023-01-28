@@ -49,6 +49,13 @@ public class OrderController : ControllerBase
         var orders = await _orderService.GetOrders();
         return Ok(_mapper.Map<IReadOnlyCollection<OrderDto>>(orders));
     }
+    
+    [HttpGet]
+    [Route("price")]
+    public async Task<ActionResult<IReadOnlyCollection<Order>>> GetPrice(string orderId)
+    {
+        return Ok(await _orderService.GetOrderPrice(new ObjectId(orderId)));
+    }
 
     [HttpPost]
     [Route("order")]
