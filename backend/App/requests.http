@@ -69,7 +69,7 @@ Content-Type: application/json
 
 {
   "customerId": "63d14f39db5391602dd1b2b7",
-  "orderItems": [
+  "products": [
     "63d25e690e4e7be89d68678a"
   ]
 }

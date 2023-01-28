@@ -10,8 +10,8 @@ public interface IOrderService : IRepositoryBase
     Task<IReadOnlyCollection<Order>> GetOrders();
     Task<Order?> GetOrderById(ObjectId id);
     Task<bool> DeleteOrder(ObjectId id);
-    Task<IReadOnlyCollection<Product>> GetOrderItemsForOrder(ObjectId orderId);
-    Task<bool> AddOrderItem(ObjectId orderId,ObjectId orderItem);
-    Task<bool> DeleteOrderItemOfOrder(ObjectId orderId,ObjectId orderItem);
-    Task<bool> DeleteOrderItemsOfOrder(ObjectId orderId);
+    Task<IReadOnlyCollection<Product>> GetProductsForOrder(ObjectId orderId);
+    Task<bool> AddProduct(ObjectId orderId,ObjectId product);
+    Task<bool> DeleteProductOfOrder(ObjectId orderId,ObjectId product);
+    Task<bool> DeleteProductsOfOrder(ObjectId orderId);
 }

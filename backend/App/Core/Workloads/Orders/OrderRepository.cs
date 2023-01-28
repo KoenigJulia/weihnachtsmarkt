@@ -35,7 +35,7 @@ public sealed class OrderRepository : RepositoryBase<Order>, IOrderRepository
         return res is { IsAcknowledged: true, ModifiedCount: 1 };
     }*/
 
-    public async Task<bool> DeleteOrderItem(ObjectId id)
+    public async Task<bool> DeleteProduct(ObjectId id)
     {
         var deleteResult = await DeleteOneAsync(id);
         return deleteResult.DeletedCount == 1;
@@ -62,28 +62,28 @@ public sealed class OrderRepository : RepositoryBase<Order>, IOrderRepository
         return deleteResult.DeletedCount == 1;
     }
 
-    public async Task<IReadOnlyCollection<Product>> GetOrderItemsForOrder(ObjectId orderId)
+    public async Task<IReadOnlyCollection<Product>> GetProductsForOrder(ObjectId orderId)
     {
-        var orderItemIds = await Query().Where(o => o.Id == orderId).
-            Select(o => o.OrderItems).FirstOrDefaultAsync();
+        var productIds = await Query().Where(o => o.Id == orderId).
+            Select(o => o.Products).FirstOrDefaultAsync();
         var list = new List<Product>();
-        foreach (var orderItemId in orderItemIds)
+        foreach (var productId in productIds)
         {
-            var product = await _productRepository.GetProductById(orderItemId);
+            var product = await _productRepository.GetProductById(productId);
             if (product != null) list.Add(product);
         }
         return list;
     }
 
-    public async Task<bool> AddOrderItem(ObjectId orderId, ObjectId orderItem)
+    public async Task<bool> AddProduct(ObjectId orderId, ObjectId product)
     {
-        var x = UpdateDefBuilder.Push(o => o.OrderItems, orderItem);
+        var x = UpdateDefBuilder.Push(o => o.Products, product);
         var res = await UpdateOneAsync(orderId, x);
         return res is { IsAcknowledged: true, ModifiedCount: 1 };
     }
 
 
-    public async Task<bool> DeleteOrderItemOfOrder(ObjectId orderId, ObjectId orderItem)
+    public async Task<bool> DeleteProductOfOrder(ObjectId orderId, ObjectId product)
     {
         Order? order = await GetOrderById(orderId);
         if (order == default)
@@ -91,7 +91,7 @@ public sealed class OrderRepository : RepositoryBase<Order>, IOrderRepository
             return await Task.FromResult(false);
         }
 
-        bool removalSucceeded = order.OrderItems.Remove(orderItem);
+        bool removalSucceeded = order.Products.Remove(product);
         if (removalSucceeded == false)
         {
             return await Task.FromResult(false);
@@ -101,7 +101,7 @@ public sealed class OrderRepository : RepositoryBase<Order>, IOrderRepository
         return res is { IsAcknowledged: true, ModifiedCount: 1 };
     }
 
-    public async Task<bool> DeleteOrderItemsOfOrder(ObjectId orderId)
+    public async Task<bool> DeleteProductsOfOrder(ObjectId orderId)
     {
         Order? order = await GetOrderById(orderId);
         if (order == default)
@@ -109,7 +109,7 @@ public sealed class OrderRepository : RepositoryBase<Order>, IOrderRepository
             return await Task.FromResult(false);
         }
 
-        order.OrderItems.Clear();
+        order.Products.Clear();
 
         ReplaceOneResult? res = await ReplaceOneAsync(order);
         return res is { IsAcknowledged: true, ModifiedCount: 1 };
