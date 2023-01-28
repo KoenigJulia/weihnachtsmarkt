@@ -33,8 +33,8 @@ public sealed class MapperProfile : Profile
                 m => m.MapFrom(o => o.Id.ToString()))
             .ForMember(o => o.CustomerId,
                 m => m.MapFrom(o => o.CustomerId.ToString()))
-            .ForMember(o => o.OrderItems,
-                m => m.MapFrom(o => o.OrderItems.Select(oi => oi.ToString())));
+            .ForMember(o => o.Prodcuts,
+                m => m.MapFrom(o => o.Products.Select(oi => oi.ToString())));
 
         CreateMap<Place, PlaceDto>()
             .ForMember(p => p.Id,

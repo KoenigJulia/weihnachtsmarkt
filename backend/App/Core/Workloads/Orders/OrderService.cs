@@ -38,24 +38,29 @@ public sealed class OrderService : IOrderService
         return await _repository.DeleteOrder(id);
     }
 
-    public async Task<IReadOnlyCollection<Product>> GetOrderItemsForOrder(ObjectId orderId)
+    public async Task<IReadOnlyCollection<Product>> GetProductsForOrder(ObjectId orderId)
     {
-        return await _repository.GetOrderItemsForOrder(orderId);
+        return await _repository.GetProductsForOrder(orderId);
     }
 
-    public async Task<bool> AddOrderItem(ObjectId orderId, ObjectId orderItem)
+    public async Task<bool> AddProduct(ObjectId orderId, ObjectId product)
     {
-        return await _repository.AddOrderItem(orderId, orderItem);
+        return await _repository.AddProduct(orderId, product);
     }
 
-    public async Task<bool> DeleteOrderItemOfOrder(ObjectId orderId, ObjectId orderItem)
+    public async Task<bool> DeleteProductOfOrder(ObjectId orderId, ObjectId product)
     {
-        return await _repository.DeleteOrderItemOfOrder(orderId, orderItem);
+        return await _repository.DeleteProductOfOrder(orderId, product);
     }
 
-    public async Task<bool> DeleteOrderItemsOfOrder(ObjectId orderId)
+    public async Task<bool> DeleteProductsOfOrder(ObjectId orderId)
     {
-        return await _repository.DeleteOrderItemsOfOrder(orderId);
+        return await _repository.DeleteProductsOfOrder(orderId);
+    }
+
+    public Task<bool> DeleteOrdersOfCustomer(ObjectId customerId)
+    {
+        return _repository.DeleteOrdersOfCustomer(customerId);
     }
 
     public Task<float> GetOrderPrice(ObjectId orderId)

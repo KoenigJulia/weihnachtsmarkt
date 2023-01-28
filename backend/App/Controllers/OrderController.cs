@@ -72,14 +72,14 @@ public class OrderController : ControllerBase
             CustomerId = new ObjectId(request.CustomerId),
             Created = DateTime.Now,
         };
-        request.OrderItems.ForEach(oi => { newOrder.OrderItems.Add(new ObjectId(oi)); });
+        request.Products.ForEach(oi => { newOrder.Products.Add(new ObjectId(oi)); });
 
         var order = await _orderService.AddOrder(newOrder);
 
         await transaction.CommitAsync();
         return CreatedAtAction(nameof(GetById), new {id = order.Id.ToString()}, _mapper.Map<OrderDto>(order));
     }
-    
+
     [HttpDelete]
     [Route("order")]
     public async Task<IActionResult> DeleteOrder(string orderId)
@@ -92,10 +92,11 @@ public class OrderController : ControllerBase
 
         return Ok(await _orderService.DeleteOrder(new ObjectId(orderId)));
     }
-    
+
     [HttpPost]
     [Route("order/{orderId}/product")]
-    public async Task<IActionResult> AddProductToOrder(string orderId, [FromBody] AddProductRequest request)
+    public async Task<IActionResult> AddProductToOrder(string orderId,
+        [FromBody] AddProductRequest request)
     {
         if (string.IsNullOrWhiteSpace(orderId) || string.IsNullOrWhiteSpace(orderId))
         {
@@ -103,10 +104,41 @@ public class OrderController : ControllerBase
         }
 
         using var transaction = await _transactionProvider.BeginTransaction();
-        await _orderService.AddOrderItem(new ObjectId(orderId), new ObjectId(request.ProductId));
+        await _orderService.AddProduct(new ObjectId(orderId), new ObjectId(request.ProductId));
         await transaction.CommitAsync();
-        
+
         var order = await _orderService.GetOrderById(new ObjectId(orderId));
         return Ok(_mapper.Map<OrderDto>(order));
+    }
+
+    [HttpDelete]
+    [Route("order/{orderId}/product/{productId}")]
+    public async Task<IActionResult> RemoveProductFromOrder(string orderId,
+        string productId)
+    {
+        if (string.IsNullOrWhiteSpace(orderId) || string.IsNullOrWhiteSpace(orderId))
+        {
+            return BadRequest();
+        }
+
+        using var transaction = await _transactionProvider.BeginTransaction();
+        await _orderService.DeleteProductOfOrder(new ObjectId(orderId), new ObjectId(productId));
+        await transaction.CommitAsync();
+
+        var order = await _orderService.GetOrderById(new ObjectId(orderId));
+        return Ok(_mapper.Map<OrderDto>(order));
+    }
+
+    [HttpGet]
+    [Route("order/{orderId}/products")]
+    public async Task<IActionResult> GetProductsOfOrder(string orderId)
+    {
+        if (string.IsNullOrWhiteSpace(orderId))
+        {
+            return BadRequest();
+        }
+
+        var products = await _orderService.GetProductsForOrder(new ObjectId(orderId));
+        return Ok(_mapper.Map<IReadOnlyCollection<ProductDto>>(products));
     }
 }
