@@ -37,7 +37,7 @@ public class PlaceRepository : RepositoryBase<Place>, IPlaceRepository
         return DeleteOneAsync(id);
     }
 
-    public async Task<bool> ReservePlace(ObjectId vendorId, ObjectId placeId)
+    public async Task<bool> ReservePlace(ObjectId? vendorId, ObjectId placeId)
     {
         var x = UpdateDefBuilder.Set(p => p.VendorId, vendorId);
         var res = await UpdateOneAsync(placeId, x);
@@ -47,5 +47,11 @@ public class PlaceRepository : RepositoryBase<Place>, IPlaceRepository
     public async Task<List<Place>> GetFreePlaces()
     {
         return await Query().Where(p => p.VendorId == null).ToListAsync();
+    }
+
+    public async Task<bool> UnreservePlaceForVendor(ObjectId id)
+    {
+        var placeId = await Query().Where(p => p.VendorId == id).Select(p => p.Id).FirstOrDefaultAsync();
+        return await ReservePlace(null, placeId);
     }
 }
