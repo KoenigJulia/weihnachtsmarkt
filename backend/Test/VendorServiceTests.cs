@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using FluentAssertions;
 using MongoDB.Bson;
 using MongoDBDemoApp.Core.Workloads.Places;
@@ -60,5 +61,32 @@ public class VendorServiceTests
 
         await repoMock.Received(1).AddEmployeeToVendor(Arg.Is(employee), Arg.Is(vendorId));
         result.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TestGetAllEmployees()
+    {
+        var expectedEmployees = new List<Employee>
+        {
+            new()
+            {
+                FirstName = "Nico",
+                LastName = "Hirsch"
+            },
+            new()
+            {
+                FirstName = "Jakob",
+                LastName = "Rathberger"
+            }
+        };
+
+        var repoMock = Substitute.For<IVendorRepository>();
+        repoMock.GetAllEmployees().Returns(expectedEmployees);
+
+        var service = new VendorService(repoMock, Substitute.For<IPlaceRepository>());
+        var employees = await service.GetAllEmployees();
+
+        await repoMock.Received(1).GetAllEmployees();
+        employees.Should().NotBeNullOrEmpty().And.HaveCount(2).And.Contain(expectedEmployees);
     }
 }
