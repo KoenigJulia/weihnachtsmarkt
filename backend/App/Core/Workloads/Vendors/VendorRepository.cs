@@ -61,6 +61,29 @@ public class VendorRepository: RepositoryBase<Vendor>, IVendorRepository
         return await Query().Select(v => v.Employees).SelectMany(x => x).ToListAsync();
     }
 
+    public async Task<bool> DeleteProductFromVendor(ObjectId productId)
+    {
+        Vendor? vendor = await GetVendorForProduct(productId);
+        if (vendor == default)
+        {
+            return await Task.FromResult(false);
+        }
+
+        bool removalSucceeded = vendor.Products.Remove(productId);
+        if (removalSucceeded == false)
+        {
+            return await Task.FromResult(false);
+        }
+
+        ReplaceOneResult? res = await ReplaceOneAsync(vendor);
+        return res is { IsAcknowledged: true, ModifiedCount: 1 };
+    }
+
+    private async Task<Vendor?> GetVendorForProduct(ObjectId productId)
+    {
+        return await Query().Where(vendor => vendor.Products.Contains(productId)).FirstOrDefaultAsync();
+    }
+
     private async void AddUniqueNameIndex()
     {
         var indexOption = new CreateIndexOptions
