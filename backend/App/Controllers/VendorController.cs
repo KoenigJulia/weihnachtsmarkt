@@ -52,11 +52,11 @@ public sealed class VendorController : ControllerBase
             return BadRequest();
 
         using var transaction = await _transactionProvider.BeginTransaction();
-        var vendor = await _vendorService.AddEmployeeToVendor(
+        var res = await _vendorService.AddEmployeeToVendor(
             new Employee { FirstName = request.FirstName, LastName = request.LastName }, new ObjectId(vendorId));
         await transaction.CommitAsync();
 
-        return Ok(vendor);
+        return Ok(res);
     }
 
     [HttpPost]
