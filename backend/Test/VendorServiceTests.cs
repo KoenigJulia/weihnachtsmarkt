@@ -40,4 +40,25 @@ public class VendorServiceTests
         await repoMock.Received(1).DeleteProductFromVendor(Arg.Is(productId));
         result.Should().BeTrue();
     }
+
+    [Fact]
+    public async Task TestAddEmployeeToVendor()
+    {
+        var employee = new Employee
+        {
+            FirstName = "FirstTest",
+            LastName = "LastTest"
+        };
+        var vendorId = new ObjectId();
+
+
+        var repoMock = Substitute.For<IVendorRepository>();
+        repoMock.AddEmployeeToVendor(Arg.Is(employee), Arg.Is(vendorId)).Returns(true);
+
+        var service = new VendorService(repoMock, Substitute.For<IPlaceRepository>());
+        var result = await service.AddEmployeeToVendor(employee, vendorId);
+
+        await repoMock.Received(1).AddEmployeeToVendor(Arg.Is(employee), Arg.Is(vendorId));
+        result.Should().BeTrue();
+    }
 }
