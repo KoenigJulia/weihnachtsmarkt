@@ -38,6 +38,7 @@ public class ProductService: IProductService
 
     public Task DeleteProduct(ObjectId id)
     {
+        _vendorRepository.DeleteProductFromVendor(id);
         return _repository.DeleteProduct(id);
     }
 }
