@@ -43,6 +43,20 @@ public sealed class VendorController : ControllerBase
         var vendors = await _vendorService.GetAllVendors();
         return Ok(_mapper.Map<IReadOnlyCollection<VendorDto>>(vendors));
     }
+    
+    [HttpPost]
+    [Route("vendor/{vendorId}/employee")]
+    public async Task<IActionResult> CreateEmployee(string vendorId, [FromBody] CreateEmployeeRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(request.FirstName) || string.IsNullOrWhiteSpace(request.LastName))
+            return BadRequest();
+
+        using var transaction = await _transactionProvider.BeginTransaction();
+        var vendor = await _vendorService.AddEmployeeToVendor(request.FirstName, request.LastName, new ObjectId(vendorId));
+        await transaction.CommitAsync();
+
+        return Ok(vendor);
+    }
 
     [HttpPost]
     [Route("vendor")]
