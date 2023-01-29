@@ -89,4 +89,19 @@ public class VendorServiceTests
         await repoMock.Received(1).GetAllEmployees();
         employees.Should().NotBeNullOrEmpty().And.HaveCount(2).And.Contain(expectedEmployees);
     }
+
+    [Fact]
+    public async Task TestGetAllEmployees_WithEmptyEmployees()
+    {
+        var expectedEmployees = new List<Employee>();
+
+        var repoMock = Substitute.For<IVendorRepository>();
+        repoMock.GetAllEmployees().Returns(expectedEmployees);
+
+        var service = new VendorService(repoMock, Substitute.For<IPlaceRepository>());
+        var employees = await service.GetAllEmployees();
+
+        await repoMock.Received(1).GetAllEmployees();
+        employees.Should().BeEmpty();
+    }
 }
