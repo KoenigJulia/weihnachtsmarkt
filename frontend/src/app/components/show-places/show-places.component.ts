@@ -68,7 +68,7 @@ export class ShowPlacesComponent implements OnInit {
   }
 
   reservePlace():void{
-    this.dialog.open(ReserveDialogComponent, {data: { vendorService: this.vendorService, placeService: this.placeService, dialog: this.dialog}})
+    this.dialog.open(ReserveDialogComponent, {data: { clickedPlace: this.clickedPlace, vendorService: this.vendorService, placeService: this.placeService, dialog: this.dialog}})
     .afterClosed().subscribe(() => this.reload())
   }
 
