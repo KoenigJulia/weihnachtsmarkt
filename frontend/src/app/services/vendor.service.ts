@@ -1,3 +1,4 @@
+import { Employee } from './../models/employee.model';
 import { AddVendor } from './../models/vendor.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -36,5 +37,9 @@ export class VendorService {
 
   getProducts(id: string){
     return this.http.get<Vendor>(this.placeUrl + "vendor?vendorId="+id);
+  }
+
+  addEmployee(newEmployee: Employee, vendorId: string){
+    return this.http.post<Employee>(this.placeUrl+ "vendor/" + vendorId + "/employee", newEmployee, httpOptions);
   }
 }

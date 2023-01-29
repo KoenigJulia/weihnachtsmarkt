@@ -1,1 +1,40 @@
-<p>show-customer works!</p>
+<div class="container" style="margin-top: 10px;">
+    <h3 style="text-align: center;">Order List of Customer {{customerId}}</h3>
+    <button (click)="logout()" style="width: 150px; background-color: black; border-color: black;" type="button" class="btn btn-primary px-3"><i
+        class="fas fa-arrow-left" aria-hidden="true" style="margin-right: 10px;"></i>Logout</button>
+    <button (click)="addOrder()" style="width: 230px; margin-left: 10px;" type="button" class="btn btn-primary px-3"><i
+            class="fas fa-plus" aria-hidden="true" style="margin-right: 10px;"></i> Add new order</button>
+    <table style="margin-top: 5px;" class="table table-stripped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let order of orders">
+            <tr [ngClass]="{'bg-secondary bg-opacity-10' : order == clickedOrder}"
+                (mouseover)="clickedOrder=order" (mouseleave)="clickedOrder=null">
+                <td scope="row">{{order.name}}</td>
+                <td scope="row">{{getPrice(orders.indexOf(order))}}</td>
+                <td scope="row">
+                    <button type="button"
+                        class="btn btn-primary px-3" (click)="showProducts(order.id)"><i class="fas fa-eye"
+                            aria-hidden="true"></i></button>
+                </td>
+                <td scope="row">
+                    <button type="button"
+                        class="btn btn-primary px-3" (click)="addProduct(order.id)"><i class="fas fa-plus"
+                            aria-hidden="true"></i></button>
+                </td>
+                <td>
+                    <button style="background-color: red; border-color: red;" type="button"
+                        class="btn btn-primary px-3" (click)="deleteOrder(order.id)"><i class="fas fa-trash-alt"
+                            aria-hidden="true"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

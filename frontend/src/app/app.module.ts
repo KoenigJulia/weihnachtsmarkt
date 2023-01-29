@@ -16,6 +16,11 @@ import { ShowProductsComponent } from './components/show-products/show-products.
 import { AddProductComponent } from './components/show-products/add-product/add-product.component';
 import { CustomerLoginComponent } from './components/customer-login/customer-login.component';
 import { ShowCustomerComponent } from './components/show-customer/show-customer.component';
+import { AddOrderComponent } from './components/add-order/add-order.component';
+import { ShowOrderProductsComponent } from './components/show-customer/show-order-products/show-order-products.component';
+import { AddProductOrderComponent } from './components/show-customer/add-product-order/add-product-order.component';
+import { ShowEmployeesComponent } from './components/show-places/show-employees/show-employees.component';
+import { AddEmployeeComponent } from './components/show-places/show-employees/add-employee/add-employee.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +32,12 @@ import { ShowCustomerComponent } from './components/show-customer/show-customer.
     ShowProductsComponent,
     AddProductComponent,
     CustomerLoginComponent,
-    ShowCustomerComponent
+    ShowCustomerComponent,
+    AddOrderComponent,
+    ShowOrderProductsComponent,
+    AddProductOrderComponent,
+    ShowEmployeesComponent,
+    AddEmployeeComponent
   ],
   imports: [
     BrowserModule,

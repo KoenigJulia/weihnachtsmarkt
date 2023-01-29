@@ -1,0 +1,9 @@
+<div class="container backgroundImage" style="margin-top: 10px;">
+    <h3 style="text-align: center; background-color: white;">Add new order</h3>
+    <div>
+        <span style="margin-right: 5px; font-weight: bold; background-color: white;">Name</span>
+        <input [(ngModel)]="order.name">
+    </div>
+    <button style="float: right; margin-top: 30px; width: 100px; background-color: green; border-color: green;" type="button" class="btn btn-primary px-3" (click)="addOrder()">Add</button>
+    <button style="float: left; margin-top: 30px; width: 100px; background-color: black; border-color: black;" type="button" class="btn btn-primary px-3" (click)="close()">Close</button>
+</div>

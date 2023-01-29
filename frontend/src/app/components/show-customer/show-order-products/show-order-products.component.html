@@ -1,0 +1,25 @@
+<div class="container" style="margin-top: 10px;">
+    <h3 style="text-align: center;">Product List</h3>
+    <table style="margin-top: 5px;" class="table table-stripped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let product of products">
+            <tr [ngClass]="{'bg-secondary bg-opacity-10' : product == clickedProduct}"
+                (mouseover)="clickedProduct=product" (mouseleave)="clickedProduct=null">
+                <th scope="row">{{product.name}}</th>
+                <td>{{product.price}}</td>
+                <td>
+                    <button style="background-color: red; border-color: red; margin-left: 50px;" type="button"
+                        class="btn btn-primary px-3" (click)="deleteProduct(product.id)"><i class="fas fa-trash-alt"
+                            aria-hidden="true"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button style="float: left; width: 100px; background-color: black; border-color: black;" type="button" class="btn btn-primary px-3" (click)="close()">Close</button>
+</div>

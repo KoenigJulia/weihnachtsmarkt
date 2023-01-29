@@ -1,0 +1,13 @@
+<div class="container backgroundImage" style="margin-top: 10px;">
+    <h3 style="text-align: center; background-color: white;">Add new employee</h3>
+    <div>
+        <span style="margin-right: 5px; font-weight: bold; background-color: white;">LastName</span>
+        <input [(ngModel)]="addedEmployee.lastName">
+    </div>
+    <div style="margin-top: 5px;">
+        <span style="margin-right: 5px; font-weight: bold; background-color: white;">FirstName</span>
+        <input [(ngModel)]="addedEmployee.firstName">
+    </div>
+    <button style="float: right; width: 100px; margin-top: 30px; background-color: green; border-color: green;" type="button" class="btn btn-primary px-3" (click)="addEmployee()">Add</button>
+    <button style="float: left; margin-top: 30px; width: 100px; background-color: black; border-color: black;" type="button" class="btn btn-primary px-3" (click)="close()">Close</button>
+</div>

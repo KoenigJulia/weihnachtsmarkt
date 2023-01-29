@@ -10,6 +10,7 @@
           <th scope="col"></th>
           <th scope="col"></th>
           <th scope="col"></th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody *ngFor="let place of places">
@@ -23,6 +24,9 @@
           </td>
           <td>
             <button type="button" class="btn btn-primary px-3" [disabled]="place.vendorId==null" (click)="showProducts(place)"><i class="fas fa-eye" aria-hidden="true"></i></button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-primary px-3" (click)="showEmployees()"><i class="fas fa-user" aria-hidden="true"></i></button>
           </td>
           <td>
             <button style="background-color: red; border-color: red; margin-left: 50px;" type="button" class="btn btn-primary px-3" (click)="deletePlace(place.id)"><i class="fas fa-trash-alt" aria-hidden="true"></i></button>

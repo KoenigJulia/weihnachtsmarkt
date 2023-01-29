@@ -1,0 +1,21 @@
+<div class="container" style="margin-top: 10px;">
+    <h3 style="text-align: center;">Employee List</h3>
+    <table style="margin-top: 5px;" class="table table-stripped">
+        <thead>
+            <tr>
+                <th scope="col">LastName</th>
+                <th scope="col">FirstName</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let employee of employees">
+            <tr [ngClass]="{'bg-secondary bg-opacity-10' : employee == clickedEmployee}"
+                (mouseover)="clickedEmployee=employee" (mouseleave)="clickedEmployee=null">
+                <th scope="row">{{employee.lastName}}</th>
+                <td>{{employee.firstName}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <button style="float: left; width: 100px; background-color: black; border-color: black;" type="button" class="btn btn-primary px-3" (click)="close()">Close</button>
+    <button style="float: right; width: 100px; background-color: green; border-color: green;" type="button" class="btn btn-primary px-3" (click)="addEmployee()">Add</button>
+</div>

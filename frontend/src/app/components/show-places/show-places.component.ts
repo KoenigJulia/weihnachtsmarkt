@@ -1,3 +1,4 @@
+import { ShowEmployeesComponent } from './show-employees/show-employees.component';
 import { DeleteVendorComponent } from './../delete-vendor/delete-vendor.component';
 import { AddPlaceComponent } from './../add-place/add-place.component';
 import { ReserveDialogComponent } from './reserve-dialog/reserve-dialog.component';
@@ -21,7 +22,7 @@ export class ShowPlacesComponent implements OnInit {
   vendors: Vendor[] = [];
 
   constructor(private placeService: PlaceService, private vendorService: VendorService, 
-    private router: Router, private dialog: MatDialog){}
+    private router: Router, private dialog: MatDialog, private addDialog: MatDialog){}
 
   ngOnInit(): void{
     this.reload()
@@ -78,6 +79,11 @@ export class ShowPlacesComponent implements OnInit {
 
   addPlace():void{
     this.dialog.open(AddPlaceComponent, {data: { clickedPlace: this.clickedPlace, vendorService: this.vendorService, placeService: this.placeService, dialog: this.dialog}})
+    .afterClosed().subscribe(() => this.reload())
+  }
+
+  showEmployees():void{
+    this.dialog.open(ShowEmployeesComponent, {data: { addDialog: this.addDialog, clickedPlace: this.clickedPlace, vendorService: this.vendorService, placeService: this.placeService, dialog: this.dialog}})
     .afterClosed().subscribe(() => this.reload())
   }
 

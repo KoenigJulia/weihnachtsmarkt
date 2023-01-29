@@ -5,6 +5,13 @@ export interface Product {
     vendorId: string
 }
 
+export interface AddProductToOrder{
+    productId: string
+}
+
+export class AddProductToOrder implements AddProductToOrder{
+}
+
 export interface AddProduct{
     name: string,
     price: number,
