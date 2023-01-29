@@ -69,6 +69,7 @@ public class OrderController : ControllerBase
         using var transaction = await _transactionProvider.BeginTransaction();
         var newOrder = new Order()
         {
+            Name = request.Name,
             CustomerId = new ObjectId(request.CustomerId),
             Created = DateTime.Now,
         };

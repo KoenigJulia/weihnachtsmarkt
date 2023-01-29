@@ -68,6 +68,7 @@ POST http://localhost:5000/api/Order/order
 Content-Type: application/json
 
 {
+  "name": "Order 2",
   "customerId": "63d14f39db5391602dd1b2b7",
   "products": [
     "63d25e690e4e7be89d68678a"
