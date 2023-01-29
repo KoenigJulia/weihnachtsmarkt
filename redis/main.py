@@ -15,7 +15,7 @@ def retrieve_data(order_id: str):
 
 
 @app.get("/price")
-async def root(order_id: str):
+async def get_price(order_id: str):
     if r.exists(order_id):
         # Retrieve the value of the key from the cache
         data = json.loads(r.get(order_id))
@@ -29,3 +29,23 @@ async def root(order_id: str):
         r.expire(order_id, 120)
         print(f'Retrieved data from source: {data}')
     return data
+
+
+@app.post("/crud")
+async def add(key, value):
+    return r.set(key, value)
+
+
+@app.get("/crud")
+async def get(key):
+    return r.get(key)
+
+
+@app.put("/crud")
+async def update(key, value):
+    return r.set(key, value)
+
+
+@app.delete("/crud")
+async def delete(key):
+    return r.delete(key)
