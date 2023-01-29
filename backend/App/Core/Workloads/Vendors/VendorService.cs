@@ -58,4 +58,9 @@ public sealed class VendorService : IVendorService
     {
         return _repository.AddProductToVendor(productId, vendorId);
     }
+
+    public Task<bool> DeleteProductFromVendor(ObjectId productId)
+    {
+        return _repository.DeleteProductFromVendor(productId);
+    }
 }
