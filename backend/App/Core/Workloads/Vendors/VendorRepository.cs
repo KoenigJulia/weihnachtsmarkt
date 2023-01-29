@@ -4,19 +4,24 @@ using LeoMongo.Transaction;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
+using MongoDBDemoApp.Core.Workloads.Orders;
 using MongoDBDemoApp.Core.Workloads.Products;
 
 namespace MongoDBDemoApp.Core.Workloads.Vendors;
 
-public class VendorRepository: RepositoryBase<Vendor>, IVendorRepository
+public class VendorRepository : RepositoryBase<Vendor>, IVendorRepository
 {
+    private readonly IOrderRepository _orderRepository;
     private readonly IDatabaseProvider _databaseProvider;
-    
-    private IMongoCollection<TCollection> GetCollection<TCollection>(string collectionName) => this._databaseProvider.Database.GetCollection<TCollection>(collectionName);
-    
-    public VendorRepository(ITransactionProvider transactionProvider, IDatabaseProvider databaseProvider) : base(transactionProvider, databaseProvider)
+
+    private IMongoCollection<TCollection> GetCollection<TCollection>(string collectionName) =>
+        this._databaseProvider.Database.GetCollection<TCollection>(collectionName);
+
+    public VendorRepository(ITransactionProvider transactionProvider, IDatabaseProvider databaseProvider,
+        IOrderRepository orderRepository) : base(transactionProvider, databaseProvider)
     {
         _databaseProvider = databaseProvider;
+        _orderRepository = orderRepository;
         AddUniqueNameIndex();
     }
 
@@ -29,6 +34,7 @@ public class VendorRepository: RepositoryBase<Vendor>, IVendorRepository
 
     public async Task<IReadOnlyCollection<Vendor>> GetAllVendors()
     {
+        var x =await GetTotalEmployeeCount();
         return await Query().ToListAsync();
     }
 
@@ -94,5 +100,10 @@ public class VendorRepository: RepositoryBase<Vendor>, IVendorRepository
         var indexModel = new CreateIndexModel<Vendor>(indexKeys, indexOption);
         var col = GetCollection<Vendor>(CollectionName);
         await col.Indexes.CreateOneAsync(indexModel);
+    }
+
+    private async Task<int> GetTotalEmployeeCount()
+    {
+        return await Query().SumAsync(v => v.Employees.Count());
     }
 }

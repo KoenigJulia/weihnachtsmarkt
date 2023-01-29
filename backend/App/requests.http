@@ -12,6 +12,14 @@ Content-Type: application/json
 
 {"placeNr": "2", "vendorId": "63d3c1fcb160cc2760d2d089"}
 
+### Add Employee to Vendor
+POST http://localhost:5000/api/Vendor/vendor/63d6930e853740183f628791/employee
+Content-Type: application/json
+
+{
+  "firstName": "Max",
+  "lastName": "Mustermann"
+}
 
 
 ### Get All Vendors
@@ -23,7 +31,6 @@ GET http://localhost:5000/api/Vendor/vendor
 {
   "vendorId": "63d3c1fcb160cc2760d2d089"
 }
-
 
 ### Create Customer
 POST http://localhost:5000/api/Customer/customer
