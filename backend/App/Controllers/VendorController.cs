@@ -11,9 +11,9 @@ namespace MongoDBDemoApp.Controllers;
 [ApiController]
 public sealed class VendorController : ControllerBase
 {
+    private readonly IMapper _mapper;
     private readonly ITransactionProvider _transactionProvider;
     private readonly IVendorService _vendorService;
-    private readonly IMapper _mapper;
 
     public VendorController(ILogger<VendorController> logger, IMapper mapper, IVendorService vendorService,
         ITransactionProvider transactionProvider)
@@ -43,7 +43,7 @@ public sealed class VendorController : ControllerBase
         var vendors = await _vendorService.GetAllVendors();
         return Ok(_mapper.Map<IReadOnlyCollection<VendorDto>>(vendors));
     }
-    
+
     [HttpPost]
     [Route("vendor/{vendorId}/employee")]
     public async Task<IActionResult> CreateEmployee(string vendorId, [FromBody] CreateEmployeeRequest request)
@@ -52,10 +52,11 @@ public sealed class VendorController : ControllerBase
             return BadRequest();
 
         using var transaction = await _transactionProvider.BeginTransaction();
-        var vendor = await _vendorService.AddEmployeeToVendor(request.FirstName, request.LastName, new ObjectId(vendorId));
+        var res = await _vendorService.AddEmployeeToVendor(
+            new Employee { FirstName = request.FirstName, LastName = request.LastName }, new ObjectId(vendorId));
         await transaction.CommitAsync();
 
-        return Ok(vendor);
+        return Ok(res);
     }
 
     [HttpPost]
