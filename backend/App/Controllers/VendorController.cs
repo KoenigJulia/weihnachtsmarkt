@@ -82,4 +82,12 @@ public sealed class VendorController : ControllerBase
 
         return Ok(true);
     }
+
+    [HttpGet]
+    [Route("employee/all")]
+    public async Task<ActionResult<IReadOnlyCollection<Employee>>> GetAllEmployees()
+    {
+        var employees = await _vendorService.GetAllEmployees();
+        return Ok(_mapper.Map<IReadOnlyCollection<Employee>>(employees));
+    }
 }
