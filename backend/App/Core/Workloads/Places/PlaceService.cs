@@ -6,7 +6,7 @@ public class PlaceService: IPlaceService
 {
     private readonly IPlaceRepository _repository;
 
-    public PlaceService(IPlaceRepository placeRepository, IPlaceRepository repository)
+    public PlaceService(IPlaceRepository repository)
     {
         _repository = repository;
     }
