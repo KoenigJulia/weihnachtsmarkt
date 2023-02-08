@@ -31,5 +31,5 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: latest
-          labels: dotnet-backend
+          tags: dotnet-backend
+          labels: latest
