@@ -17,5 +17,5 @@ RUN dotnet publish "MongoDBWeihnachtsmarktApp.csproj" -c Release -r linux-x64 -o
 FROM base AS final
 WORKDIR /mongo
 COPY --from=publish /app/publish .
-RUN chmod +x MongoControl
+RUN chmod +x App
 ENTRYPOINT ["/mongo/App"]
