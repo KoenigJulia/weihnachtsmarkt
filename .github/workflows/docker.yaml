@@ -32,3 +32,10 @@ jobs:
           context: ./backend
           push: true
           tags: ghcr.io/koenigjulia/weihnachtsmarkt-backend:latest
+
+      - name: Build and push Frontend Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: ./frontend
+          push: true
+          tags: ghcr.io/koenigjulia/weihnachtsmarkt-frontend:latest
