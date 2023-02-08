@@ -1,23 +1,13 @@
-#Download Node Alpine image
-FROM node:12.16.1-alpine As build
-
-#Setup the working directory
-WORKDIR /usr/src/ng-app
-
-#Copy package.json
-COPY package.json package-lock.json ./
-
-#Install dependencies
+# Stage 1: Build an Angular Docker Image
+FROM node:16 as build
+WORKDIR /app
+COPY package*.json /app/
 RUN npm install
+COPY . /app
+ARG configuration=production
+RUN npm run build -- --outputPath=./dist/out --configuration $configuration
 
-#Copy other files and folder to working directory
-COPY . .
-
-#Build Angular application in PROD mode
-RUN npm run build
-
-#Download NGINX Image
-FROM nginx:1.15.8-alpine
-
-#Copy built angular files to NGINX HTML folder
-COPY --from=build /usr/src/ng-app/dist/pokemon-app/ /usr/share/nginx/html
+# Stage 2, use the compiled app, ready for production with Nginx
+FROM nginx
+COPY --from=build /app/dist/out/ /usr/share/nginx/html
+#COPY /nginx-custom.conf /etc/nginx/conf.d/default.conf
