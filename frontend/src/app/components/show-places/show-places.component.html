@@ -2,6 +2,7 @@
     <h3 style="text-align: center;">Overview</h3>
     <button (click)="addPlace()" style="width: 230px;" type="button" class="btn btn-primary px-3"><i class="fas fa-plus" aria-hidden="true" style="margin-right: 10px;"></i> Add place or vendor</button>
     <button style="background-color: red; border-color: red; margin-left: 50px; width: 230px;" type="button" class="btn btn-primary px-3" (click)="deleteVendor()"><i class="fas fa-trash-alt" aria-hidden="true" style="margin-right: 20px;"></i>Delete vendor</button>
+    <button style="margin-left: 50px; width: 230px;" type="button" class="btn btn-primary px-3" (click)="deleteVendor()"><i class="fas fa-user" aria-hidden="true" style="margin-right: 20px;"></i>Show all employees</button>
     <table style="margin-top: 5px;" class="table table-stripped">
       <thead>
         <tr>
@@ -20,7 +21,7 @@
           <th scope="row">{{place.placeNr}}</th>
           <td>{{place.vendorId != null ? getVendor(place.vendorId) : "Keine Reservierung"}}</td>
           <td>
-            <button type="button" class="btn btn-primary px-3" [disabled]="place.vendorId!=null" (click)="reservePlace()">Reservate</button>
+            <button type="button" class="btn btn-primary px-3" [disabled]="place.vendorId!=null" (click)="reservePlace()">Reserve</button>
           </td>
           <td>
             <button type="button" class="btn btn-primary px-3" [disabled]="place.vendorId==null" (click)="showProducts(place)"><i class="fas fa-eye" aria-hidden="true"></i></button>
