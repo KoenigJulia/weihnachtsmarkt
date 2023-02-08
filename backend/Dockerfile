@@ -8,10 +8,10 @@ COPY ["App/MongoDBWeihnachtsmarktApp.csproj", "App/"]
 RUN dotnet restore "App/MongoDBWeihnachtsmarktApp.csproj"
 COPY . .
 WORKDIR "/src/App"
-RUN dotnet build "MongoDBWeihnachtsmarktApp.csproj" -c Release -r linux-x64 -o /app/build -p:PublishAot=true
+RUN dotnet build "MongoDBWeihnachtsmarktApp.csproj" -c Release -r linux-x64 -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "MongoDBWeihnachtsmarktApp.csproj" -c Release -r linux-x64 -o /app/publish -p:PublishAot=true
+RUN dotnet publish "MongoDBWeihnachtsmarktApp.csproj" -c Release -r linux-x64 -o /app/publish
 
 
 FROM base AS final
