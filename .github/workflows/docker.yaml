@@ -31,5 +31,4 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: dotnet-backend
-          labels: latest
+          tags: ghcr.io/koenigjulia/weihnachtsmarkt-backend:latest
