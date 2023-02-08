@@ -18,4 +18,7 @@ FROM base AS final
 WORKDIR /mongo
 COPY --from=publish /app/publish .
 RUN chmod +x MongoDBWeihnachtsmarktApp
+
+EXPOSE 5000
+
 ENTRYPOINT ["/mongo/MongoDBWeihnachtsmarktApp"]
