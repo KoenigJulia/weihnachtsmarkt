@@ -1,0 +1,37 @@
+version: '3.1'
+services:
+  mongodb:
+    image: mhaslinger/mongodb-with-transactions:master
+    container_name: mongodb
+    volumes:
+      - mongodb:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - weihnachten
+  backend:
+    image: ghcr.io/koenigjulia/weihnachtsmarkt-backend:latest
+    container_name: backend
+    restart: always
+    depends_on:
+      - mongodb
+    ports:
+      - "5000:5000"
+    networks:
+      - weihnachten
+    environment:
+      - DOTNET_URLS=http://+:5000
+
+networks:
+  weihnachten:
+    name: weihnachten
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - 
+          subnet: 10.0.1.0/24
+
+volumes:
+  mongodb:
+
