@@ -15,7 +15,6 @@ RUN dotnet publish "MongoDBWeihnachtsmarktApp.csproj" -c Release -r linux-x64 -o
 
 
 FROM base AS final
-RUN apt update &&apt install libicu
 WORKDIR /mongo
 COPY --from=publish /app/publish .
 RUN chmod +x MongoDBWeihnachtsmarktApp
