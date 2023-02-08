@@ -13,7 +13,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class CustomerService {
-  placeUrl: string = "http://localhost:5000/api/Customer/"
+  placeUrl: string = "http://backend:5000/api/Customer/"
 
   constructor(private http: HttpClient) { }
 
