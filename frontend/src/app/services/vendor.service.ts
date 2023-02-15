@@ -15,7 +15,7 @@ const httpOptions = {
 })
 export class VendorService {
 
-  placeUrl: string = "http://localhost:5000/api/Vendor/"
+  placeUrl: string = "http://the-purge.at:9418/api/Vendor/"
 
   constructor(private http: HttpClient) { }
 

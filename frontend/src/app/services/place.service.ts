@@ -13,7 +13,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class PlaceService {
-  placeUrl: string = "http://localhost:5000/api/Place/"
+  placeUrl: string = "http://the-purge.at:9418/api/Place/"
 
   constructor(private http: HttpClient) { }
 
