@@ -10,4 +10,5 @@ public interface IVendorService
     Task DeleteVendor(ObjectId id);
     Task<bool> AddEmployeeToVendor(Employee employee, ObjectId vendorId);
     Task<List<Employee>> GetAllEmployees();
+    Task<int> GetTotalEmployeeCount();
 }
