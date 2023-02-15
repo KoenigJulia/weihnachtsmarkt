@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ShowPlacesComponent } from './components/show-places/show-places.component';
 
 const routes: Routes = [
-  {path: '', redirectTo:'showPlaces', pathMatch: 'full'},
+  {path: '', pathMatch: 'full', component: ShowPlacesComponent},
   {path: 'showPlaces', component: ShowPlacesComponent},
   {path: 'showProducts/:id', component: ShowProductsComponent},
   {path: 'loginCustomer', component: CustomerLoginComponent},
