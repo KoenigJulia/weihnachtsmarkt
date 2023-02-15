@@ -87,4 +87,7 @@ export class ShowPlacesComponent implements OnInit {
     .afterClosed().subscribe(() => this.reload())
   }
 
+  customerLogin():void{
+    this.router.navigate(['/loginCustomer'])
+  }
 }
