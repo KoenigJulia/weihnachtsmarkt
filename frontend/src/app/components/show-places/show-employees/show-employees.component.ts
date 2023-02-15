@@ -21,7 +21,7 @@ export class ShowEmployeesComponent implements OnInit {
   }
 
   reload():void{
-    this.data.vendorService.getAllEmployees().subscribe({
+    this.data.vendorService.getVendorById(this.data.clickedPlace.vendorId).subscribe({
       next: (data: { employees: Employee[]; }) => {
         this.employees = data.employees
       },

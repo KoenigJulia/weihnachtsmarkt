@@ -1,3 +1,5 @@
+import { ShowAllEmployeesComponent } from './show-all-employees/show-all-employees.component';
+import { AddEmployeeComponent } from './show-employees/add-employee/add-employee.component';
 import { ShowEmployeesComponent } from './show-employees/show-employees.component';
 import { DeleteVendorComponent } from './../delete-vendor/delete-vendor.component';
 import { AddPlaceComponent } from './../add-place/add-place.component';
@@ -82,8 +84,13 @@ export class ShowPlacesComponent implements OnInit {
     .afterClosed().subscribe(() => this.reload())
   }
 
-  showEmployees():void{
+  showEmployeesByVendor():void{
     this.dialog.open(ShowEmployeesComponent, {data: { addDialog: this.addDialog, clickedPlace: this.clickedPlace, vendorService: this.vendorService, placeService: this.placeService, dialog: this.dialog}})
+    .afterClosed().subscribe(() => this.reload())
+  }
+
+  showEmployees():void{
+    this.dialog.open(ShowAllEmployeesComponent, {data: { addDialog: this.addDialog, clickedPlace: this.clickedPlace, vendorService: this.vendorService, placeService: this.placeService, dialog: this.dialog}})
     .afterClosed().subscribe(() => this.reload())
   }
 

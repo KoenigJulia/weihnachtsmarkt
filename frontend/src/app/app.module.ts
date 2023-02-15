@@ -21,6 +21,7 @@ import { ShowOrderProductsComponent } from './components/show-customer/show-orde
 import { AddProductOrderComponent } from './components/show-customer/add-product-order/add-product-order.component';
 import { ShowEmployeesComponent } from './components/show-places/show-employees/show-employees.component';
 import { AddEmployeeComponent } from './components/show-places/show-employees/add-employee/add-employee.component';
+import { ShowAllEmployeesComponent } from './components/show-places/show-all-employees/show-all-employees.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { AddEmployeeComponent } from './components/show-places/show-employees/ad
     ShowOrderProductsComponent,
     AddProductOrderComponent,
     ShowEmployeesComponent,
-    AddEmployeeComponent
+    AddEmployeeComponent,
+    ShowAllEmployeesComponent
   ],
   imports: [
     BrowserModule,
