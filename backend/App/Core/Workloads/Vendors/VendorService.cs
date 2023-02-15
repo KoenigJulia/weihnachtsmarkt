@@ -59,7 +59,7 @@ public sealed class VendorService : IVendorService
         return _repository.DeleteProductFromVendor(productId);
     }
 
-    public Task<int> GetTotalEmployeeCount() {
-        return _repository.GetTotalEmployeeCount();
+    public async Task<int> GetTotalEmployeeCount() {
+        return await _repository.GetTotalEmployeeCount();
     }
 }
