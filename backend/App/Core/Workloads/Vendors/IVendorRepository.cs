@@ -15,4 +15,5 @@ public interface IVendorRepository: IRepositoryBase
     Task<bool> AddEmployeeToVendor(Employee employee, ObjectId vendorId);
     Task<List<Employee>> GetAllEmployees();
     Task<bool> DeleteProductFromVendor(ObjectId produktId);
+    Task<int> GetTotalEmployeeCount();
 }

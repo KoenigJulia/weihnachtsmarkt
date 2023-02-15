@@ -21,6 +21,13 @@ services:
       - weihnachten
     environment:
       - DOTNET_URLS=http://+:5000
+  frontend:
+    image: ghcr.io/koenigjulia/weihnachtsmarkt-frontend:latest
+    container_name: frontend
+    ports:
+      - "2000:80"
+    networks:
+      - weihnachten
 
 networks:
   weihnachten:

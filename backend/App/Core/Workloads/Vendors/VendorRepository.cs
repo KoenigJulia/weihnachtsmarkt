@@ -95,4 +95,8 @@ public class VendorRepository: RepositoryBase<Vendor>, IVendorRepository
         var col = GetCollection<Vendor>(CollectionName);
         await col.Indexes.CreateOneAsync(indexModel);
     }
+
+    public Task<int> GetTotalEmployeeCount() {
+        return await Query().SumAsync(v => v.Employees.Count());
+    }
 }
