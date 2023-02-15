@@ -14,9 +14,6 @@ class Customer {
 class Order {
 }
 
-class OrderItem{
-}
-
 class Employee {
 }
 
@@ -29,8 +26,7 @@ Vendor ||--o{ Product
 Vendor |o--|| Place
 Vendor ||--|{ Employee
 
-Order ||--o{ OrderItem
-OrderItem ||--|| Product
+Order }o--o| Product
 Customer |o--o{ Order
 
 
