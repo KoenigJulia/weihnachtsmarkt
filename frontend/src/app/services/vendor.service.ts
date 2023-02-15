@@ -19,6 +19,10 @@ export class VendorService {
 
   constructor(private http: HttpClient) { }
 
+  getAllEmployees(){
+    return this.http.get<Vendor>(this.placeUrl + "employee/all");
+  }
+
   getVendorById(vendorId: string){
     return this.http.get<Vendor>(this.placeUrl + "vendor?vendorId="+vendorId);
   }
